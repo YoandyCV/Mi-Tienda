@@ -1,0 +1,194 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.wrapper {
+    flex: 1;
+    }
+/* .header {
+background: linear-gradient(to right, #4CAF50, #2196F3, #ffffff);
+color: black;
+padding: 1rem;
+text-align: center;
+} */
+.header {
+    background: linear-gradient(to right, #4CAF50, #2196F3, #ffffff);
+    color: black;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+.header h1 {
+    margin: 0; /* Eliminar margen inferior del título */
+}
+
+.menu-button-container {
+    text-align: left; /* Alinear el botón a la izquierda */
+    margin-top: 10px; /* Espacio entre el título y el botón */
+}
+
+.menu-button {
+    font-size: 24px; /* Tamaño de fuente un poco más pequeño */
+    cursor: pointer;
+    color: #2c3e50; /* Color oscuro para el botón */
+    /* background-color: #ecf0f1; */ /* Fondo claro */
+    padding: 8px 16px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    display: inline-block; /* Para que el padding funcione correctamente */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+.menu-button:hover {
+    background-color: #34495e; /* Fondo oscuro al hacer hover */
+    color: #ecf0f1; /* Texto claro al hacer hover */
+}
+
+/* fin cambios  */
+.main-content {
+    padding: 1rem;
+    margin-left: 0; /* Margen inicial sin menú */
+    margin-bottom: 70px;
+    transition: margin-left 0.5s;
+}
+.main-content.menu-open {
+    margin-left: 260px; /* Margen cuando el menú está abierto */
+}
+.app-card {
+background-color: white; 
+border: 1px solid #ddd;
+border-radius: 5px;
+margin: 1rem;
+padding: 1rem;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+display: flex;
+flex-direction: column;
+max-width: 300px;
+min-width: 200px;
+}
+.app-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+.app-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+}
+.app-header {
+display: flex;
+align-items: center;
+}
+.app-card img {
+max-width: 50px;
+border-radius: 5px;
+margin-right: 1rem;
+}
+.app-card h2 {
+font-size: 1.5rem;
+margin: 0;
+}
+.app-card p {
+margin: 0.5rem 0;
+color: #555;
+}
+.footer {
+background: linear-gradient(to right, #4CAF50, #2196F3, #ffffff);
+color: black;
+padding: 0.5rem;
+text-align: center;
+}
+.sidenav {
+    height: 100%;
+    width: 0; /* Ancho inicial */
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #2c3e50; /* Fondo oscuro pero moderno */
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 12px 8px 12px 32px; /* Más espacio vertical */
+    text-decoration: none;
+    font-size: 20px; /* Tamaño de fuente ligeramente más pequeño */
+    color: #ecf0f1; /* Color de texto claro */
+    display: block;
+    transition: 0.3s;
+    border-bottom: 1px solid #34495e; /* Línea divisoria sutil */
+}
+
+.sidenav a:hover {
+    color: #ffffff; /* Texto blanco al hacer hover */
+    background-color: #34495e; /* Fondo más claro al hacer hover */
+    transform: translateX(5px); /* Efecto de desplazamiento */
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: #ecf0f1; /* Color del botón de cerrar */
+}
+
+.sidenav .closebtn:hover {
+    color: #ffffff; /* Color al hacer hover */
+    background-color: transparent; /* Sin fondo al hacer hover */
+}
+.modal {
+display: none;
+position: fixed;
+z-index: 1;
+padding-top: 60px;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgb(0,0,0);
+background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+background-color:#fefefe;
+margin: 5% auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+max-width: 400px;
+}
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+.qr-code {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.qr-code img {
+max-width: 200px;
+}
