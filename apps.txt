@@ -2,6 +2,10 @@ CalcTool
 CalcTool V3.2 Util Herramienta Para El Calculo Cootidiano En Nuestro Taller.
 /apps/CalcTool_3.2.apk
 /apps/CalcTool.png
+CalcTool
+CalcTool 4.0 Actualización 
+/apps/CalcTool_4.0.apk
+/apps/CalcTool.png
 Web To Pdf
 Web To Pdf V1.0 Guarda El Contenido De Una Pagina Web En Un Archivo Pdf.
 apps/Web To Pdf_1.0.apk
