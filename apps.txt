@@ -1,6 +1,6 @@
 Diagramas
 Diagramas v1.1 App desde donde puedes ver y descargar diagramas de la colección personal del autor y asociados.
-/apps/Diagramas Diagramas_1.1.apk
+/apps/Diagramas_1.1.apk
 /apps/Diagramas.png
 1.49 MB
 CalcTool
