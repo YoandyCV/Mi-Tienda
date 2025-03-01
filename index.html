@@ -3,108 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Tienda de Aplicaciones</title>
-    <link rel="stylesheet" href="/Styles.css"> <!-- Enlace al archivo CSS externo -->
+    <title>Cargador de Apps</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .app {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .app h2 {
+            margin-top: 0;
+        }
+        .app p {
+            margin: 5px 0;
+        }
+        .app a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .app a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="https://t.me/Apps_YCV" target="_blank">Únetenos a Telegram</a>
-        <p></p>
-        <a href="javascript:void(0)" onclick="document.getElementById('donationModal').style.display='block'">Donaciones</a>
-    </div>
-
-    <div class="header">
-        <h1>Mi Tienda de Aplicaciones</h1>
-        <div class="menu-button-container">
-            <span class="menu-button" onclick="openNav()">&#9776; Menú</span>
-        </div>
-    </div>
-
-    <div id="donationModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('donationModal').style.display='none'">&times;</span>
-            <h2>Donaciones</h2>
-            <div class="qr-code">
-                <img src="/qr.jpg" alt="Código QR">
-            </div>
-            <p>Escanea el código QR para realizar una donación a nuestra cuenta.</p>
-        </div>
-    </div>
-
-    <div class="main-content" id="app-container">
-        <!-- Las aplicaciones serán cargadas aquí -->
-    </div>
-
-    <div class="footer">
-        <p>&copy; 2025 Mi Tienda de Aplicaciones. Todos los derechos reservados.</p>
-    </div>
+    <h1>Mis Apps</h1>
+    <div id="apps-container"></div>
 
     <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("app-container").style.marginLeft = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("app-container").style.marginLeft = "0";
-        }
-
-        // Función para obtener el tamaño de un archivo
-        async function getFileSize(url) {
-            try {
-                const response = await fetch(url, { method: 'HEAD' });
-                if (response.ok) {
-                    const size = response.headers.get('Content-Length');
-                    return size ? (size / (1024 * 1024)).toFixed(2) + ' MB' : 'Desconocido'; // Convertir a MB
-                } else {
-                    console.error('Error al obtener el tamaño del archivo:', response.statusText);
-                    return 'Desconocido';
-                }
-            } catch (error) {
-                console.error('Error al realizar la solicitud HEAD:', error);
-                return 'Desconocido';
-            }
-        }
-
-        // Cargar aplicaciones desde el archivo apps.txt
+        // Función para cargar y mostrar las apps desde el archivo apps.txt
         async function loadApps() {
-            const appContainer = document.getElementById('app-container');
-            appContainer.classList.add('app-container');
             try {
+                // Cargar el archivo apps.txt
                 const response = await fetch('apps.txt');
-                const data = await response.text();
-                const lines = data.split('\n');
-                for (let i = 0; i < lines.length; i += 4) {
-                    const title = lines[i].trim();
-                    const description = lines[i + 1].trim();
-                    const link = lines[i + 2].trim();
-                    const icon = lines[i + 3].trim();
+                if (!response.ok) {
+                    throw new Error('No se pudo cargar el archivo apps.txt');
+                }
+                const text = await response.text();
 
-                    if (title && description && link && icon) {
-                        const appCard = document.createElement('div');
-                        appCard.className = 'app-card';
+                // Dividir el contenido en líneas
+                const lines = text.split('\n').filter(line => line.trim() !== '');
 
-                        // Obtener el tamaño del archivo
-                        const fileSize = await getFileSize(link);
+                // Contenedor para las apps
+                const appsContainer = document.getElementById('apps-container');
 
-                        appCard.innerHTML = `
-                            <div class="app-header">
-                                <img src="${icon}" alt="Icono de ${title}">
-                                <h2>${title}</h2>
-                            </div>
-                            <p>${description}</p>
-                            <a href="${link}" target="_blank">Descargar (${fileSize})</a>
-                        `;
-                        appContainer.appendChild(appCard);
-                    }
+                // Procesar cada línea como una app
+                for (let i = 0; i < lines.length; i += 5) {
+                    const name = lines[i];
+                    const version = lines[i + 1];
+                    const description = lines[i + 2];
+                    const url = lines[i + 3];
+                    const size = lines[i + 4]; // Tamaño de la app (leído directamente de la 5ª línea)
+
+                    // Crear el elemento de la app
+                    const appElement = document.createElement('div');
+                    appElement.className = 'app';
+                    appElement.innerHTML = `
+                        <h2>${name}</h2>
+                        <p><strong>Versión:</strong> ${version}</p>
+                        <p><strong>Descripción:</strong> ${description}</p>
+                        <p><strong>Tamaño:</strong> ${size}</p>
+                        <p><a href="${url}" target="_blank">Descargar</a></p>
+                    `;
+
+                    // Agregar la app al contenedor
+                    appsContainer.appendChild(appElement);
                 }
             } catch (error) {
-                console.error('Error al cargar el archivo:', error);
+                console.error('Error al cargar las apps:', error);
+                document.getElementById('apps-container').innerHTML = '<p>Error al cargar las apps. Por favor, inténtalo de nuevo más tarde.</p>';
             }
         }
 
+        // Cargar las apps cuando la página se cargue
         window.onload = loadApps;
     </script>
 </body>

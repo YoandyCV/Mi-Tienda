@@ -2,19 +2,24 @@ Diagramas
 Diagramas v1.1 App desde donde puedes ver y descargar diagramas de la colección personal del autor y asociados.
 /apps/Diagramas Diagramas_1.1.apk
 /apps/Diagramas.png
+1.49 MB
 CalcTool
 CalcTool V3.2 Util Herramienta Para El Calculo Cootidiano En Nuestro Taller.
 /apps/CalcTool_3.2.apk
 /apps/CalcTool.png
+966.99 KB
 CalcTool
 CalcTool 4.0 Actualización 
 /apps/CalcTool_4.0.apk
 /apps/CalcTool.png
+970.99 KB
 Web To Pdf
 Web To Pdf V1.0 Guarda El Contenido De Una Pagina Web En Un Archivo Pdf.
 apps/Web To Pdf_1.0.apk
 apps/WebToPdf.png
+4.06 MB
 Generar sonido
 Generar sonido V1.0 Generador De Tonos Para El Trabajo Con Audios
 /apps/Generar Sonido_1.0.apk
 /apps/GenerarSonido.png
+100.68 KB
