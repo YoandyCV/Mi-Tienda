@@ -1,6 +1,6 @@
-Diagramas BETA
-Diagramas vBETA Aplicación que  permite ver y descargar diagramas de la colección personal del autor.
-/apps/Diagramas BETA_1.0.apk
+Diagramas
+Diagramas v1.1 App desde donde puedes ver y descargar diagramas de la colección personal del autor y asociados.
+/apps/Diagramas Diagramas_1.1.apk
 /apps/Diagramas.png
 CalcTool
 CalcTool V3.2 Util Herramienta Para El Calculo Cootidiano En Nuestro Taller.

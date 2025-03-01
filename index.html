@@ -15,11 +15,11 @@
     </div>
 
     <div class="header">
-    <h1>Mi Tienda de Aplicaciones</h1>
-    <div class="menu-button-container">
-        <span class="menu-button" onclick="openNav()">&#9776; Menú</span>
+        <h1>Mi Tienda de Aplicaciones</h1>
+        <div class="menu-button-container">
+            <span class="menu-button" onclick="openNav()">&#9776; Menú</span>
+        </div>
     </div>
-</div>
 
     <div id="donationModal" class="modal">
         <div class="modal-content">
@@ -51,34 +51,58 @@
             document.getElementById("app-container").style.marginLeft = "0";
         }
 
-        function loadApps() {
-            fetch('apps.txt')
-                .then(response => response.text())
-                .then(data => {
-                    const lines = data.split('\n');
-                    const appContainer = document.getElementById('app-container');
-                    appContainer.classList.add('app-container');
-                    for (let i = 0; i < lines.length; i += 4) {
-                        const title = lines[i].trim();
-                        const description = lines[i + 1].trim();
-                        const link = lines[i + 2].trim();
-                        const icon = lines[i + 3].trim();
-                        if (title && description && link && icon) {
-                            const appCard = document.createElement('div');
-                            appCard.className = 'app-card';
-                            appCard.innerHTML = `
-                                <div class="app-header">
-                                    <img src="${icon}" alt="Icono de ${title}">
-                                    <h2>${title}</h2>
-                                </div>
-                                <p>${description}</p>
-                                <a href="${link}" target="_blank">Descargar</a>
-                            `;
-                            appContainer.appendChild(appCard);
-                        }
+        // Función para obtener el tamaño de un archivo
+        async function getFileSize(url) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok) {
+                    const size = response.headers.get('Content-Length');
+                    return size ? (size / (1024 * 1024)).toFixed(2) + ' MB' : 'Desconocido'; // Convertir a MB
+                } else {
+                    console.error('Error al obtener el tamaño del archivo:', response.statusText);
+                    return 'Desconocido';
+                }
+            } catch (error) {
+                console.error('Error al realizar la solicitud HEAD:', error);
+                return 'Desconocido';
+            }
+        }
+
+        // Cargar aplicaciones desde el archivo apps.txt
+        async function loadApps() {
+            const appContainer = document.getElementById('app-container');
+            appContainer.classList.add('app-container');
+            try {
+                const response = await fetch('apps.txt');
+                const data = await response.text();
+                const lines = data.split('\n');
+                for (let i = 0; i < lines.length; i += 4) {
+                    const title = lines[i].trim();
+                    const description = lines[i + 1].trim();
+                    const link = lines[i + 2].trim();
+                    const icon = lines[i + 3].trim();
+
+                    if (title && description && link && icon) {
+                        const appCard = document.createElement('div');
+                        appCard.className = 'app-card';
+
+                        // Obtener el tamaño del archivo
+                        const fileSize = await getFileSize(link);
+
+                        appCard.innerHTML = `
+                            <div class="app-header">
+                                <img src="${icon}" alt="Icono de ${title}">
+                                <h2>${title}</h2>
+                            </div>
+                            <p>${description}</p>
+                            <a href="${link}" target="_blank">Descargar (${fileSize})</a>
+                        `;
+                        appContainer.appendChild(appCard);
                     }
-                })
-                .catch(error => console.error('Error al cargar el archivo:', error));
+                }
+            } catch (error) {
+                console.error('Error al cargar el archivo:', error);
+            }
         }
 
         window.onload = loadApps;
