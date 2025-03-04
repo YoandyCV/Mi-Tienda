@@ -1,4 +1,9 @@
 Diagramas
+Diagramas 1.2 Actualizacionón (Sin perdida de calidad en imagen)
+/apps/Diagramas_1.2.apk
+/apps/Diagramas.png
+1.49 MB
+Diagramas
 Diagramas v1.1 App desde donde puedes ver y descargar diagramas de la colección personal del autor y asociados.
 /apps/Diagramas_1.1.apk
 /apps/Diagramas.png
