@@ -1,13 +1,13 @@
 Diagramas
-Diagramas 1.2 Actualización (Sin perdida de calidad en imagen)
+Diagramas 2.0 Nueva versión, incluido los diagramas en formato PDF.
+/apps/Diagramas_2.0.apk
+/apps/Diagramas.png
+1.78 MB
+Diagramas
+Diagramas v1.2 App desde donde puedes ver y descargar diagramas de la colección personal del autor y asociados.
 /apps/Diagramas_1.2.apk
 /apps/Diagramas.png
-1.49 MB
-Diagramas
-Diagramas v1.1 App desde donde puedes ver y descargar diagramas de la colección personal del autor y asociados.
-/apps/Diagramas_1.1.apk
-/apps/Diagramas.png
-1.49 MB
+1.49 MbB
 CalcTool
 CalcTool 4.1 Util Herramienta Para El Calculo Cootidiano En Nuestro Taller.
 /apps/CalcTool_4.1.apk
