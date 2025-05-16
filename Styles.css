@@ -240,3 +240,11 @@ body {
 .qr-code img:hover {
     transform: scale(1.1);
 }
+.app-card p strong {
+    color: #2c3e50;
+}
+
+.download-count {
+    color: #e74c3c;
+    font-weight: bold;
+}
