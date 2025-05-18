@@ -1,3 +1,18 @@
+CacharreroTools
+CacharreroTools v1.0 (2011) una version de CalcTool para windows con menos secciones por no actualizarla mas, contiene un identidificador del codigo de colores en resistencias.
+/apps/CacharreroTools.zip
+/apps/CacharreroTools.ico
+521 KB
+Catalogo
+Catalogo es una aplicación para Windows que contiene datos sobre componentes de construcción rusa y nacional.
+/apps/Catalogo_ruso_nacional.zip
+/apps/Catalogo_ruso_nacional.ico
+610K KB
+4G Swit
+4G Swit v1.1 una simple app para forzar la 4G y otras configuraciones en nuestro movil.
+/apps/4G_swit_1.1.apk
+/apps/4Gswit.jpeg
+112.76 KB
 Diagramas
 Diagramas 2.0 Nueva versión, incluido los diagramas en formato PDF.
 /apps/Diagramas_2.0.apk
