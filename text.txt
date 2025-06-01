@@ -1,0 +1,280 @@
+function doGet(e) {
+  const app = e.parameter.app;
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const data = sheet.getDataRange().getValues();
+  
+  // Buscar la app
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][0].toString().trim().toLowerCase() === app.trim().toLowerCase()) {
+      const count = (data[i][1] || 0) + 1;
+      sheet.getRange(i + 1, 2).setValue(count);
+      return ContentService.createTextOutput(count.toString())
+        .setMimeType(ContentService.MimeType.TEXT)
+        .addHeader("Access-Control-Allow-Origin", "*");
+    }
+  }
+  
+  sheet.appendRow([app, 1]);
+  return ContentService.createTextOutput("1")
+    .setMimeType(ContentService.MimeType.TEXT)
+    .addHeader("Access-Control-Allow-Origin", "*");
+}
+
+funcional
+function doGet(e) {
+  const app = e.parameter.app;
+  const mode = e.parameter.mode || "inc";
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const data = sheet.getDataRange().getValues();
+
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][0].toString().trim().toLowerCase() === app.trim().toLowerCase()) {
+      let count = data[i][1] || 0;
+      if (mode === "inc") {
+        count++;
+        sheet.getRange(i + 1, 2).setValue(count);
+      }
+      return ContentService.createTextOutput(count.toString())
+        .setMimeType(ContentService.MimeType.TEXT)
+        .addHeader("Access-Control-Allow-Origin", "*")
+        .addHeader("Access-Control-Allow-Methods", "GET");
+    }
+  }
+
+  if (mode === "get") {
+    return ContentService.createTextOutput("0")
+      .setMimeType(ContentService.MimeType.TEXT)
+      .addHeader("Access-Control-Allow-Origin", "*")
+      .addHeader("Access-Control-Allow-Methods", "GET");
+  }
+
+  if (mode === "inc") {
+    sheet.appendRow([app, 1]);
+    return ContentService.createTextOutput("1")
+      .setMimeType(ContentService.MimeType.TEXT)
+      .addHeader("Access-Control-Allow-Origin", "*")
+      .addHeader("Access-Control-Allow-Methods", "GET");
+  } else {
+    sheet.appendRow([app, 0]);
+    return ContentService.createTextOutput("0")
+      .setMimeType(ContentService.MimeType.TEXT)
+      .addHeader("Access-Control-Allow-Origin", "*")
+      .addHeader("Access-Control-Allow-Methods", "GET");
+  }
+}
+
+function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("app-container").style.marginLeft = "250px";
+    }
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("app-container").style.marginLeft = "0";
+    }
+    // Cargar aplicaciones desde el archivo apps.txt
+    async function loadApps() {
+        const appContainer = document.getElementById('app-container');
+        appContainer.classList.add('app-container');
+        try {
+            const response = await fetch('apps.txt');
+            const data = await response.text();
+            const lines = data.split('\n');
+            for (let i = 0; i < lines.length; i += 5) {
+                const title = lines[i].trim();
+                const description = lines[i + 1].trim();
+                const link = lines[i + 2].trim();
+                const icon = lines[i + 3].trim();
+                const fileSize = lines[i + 4].trim(); // Obtener el tamaño desde la quinta línea
+                if (title && description && link && icon && fileSize) {
+                    const appCard = document.createElement('div');
+                    appCard.className = 'app-card';
+                    // Crear el contenido de la tarjeta de la aplicación
+
+                    // aqui lo modifique para dar mejor apariencia
+                    appCard.innerHTML = `
+                        <img src="${icon}" alt="${title}" class="app-icon">
+                        <h2>${title}</h2>
+                        <button class="expandir-btn">➕ Expandir para ver más</button>
+                        <div class="description-container">
+                            <p class="app-description">${description}</p>
+                        </div>
+                        <!--Aqui cerramos expancion-->
+                        <p><strong>📦 Tamaño:</strong> ${fileSize}</p>
+                        
+                        <!--Aqui controlamos las descargas-->
+                        <div class="descarga-contador">⬇️ Descargas: <span class="contador" data-app="${title}">0</span></div>
+                        <a href="${lines[i+2].trim()}" class="download-button" data-app="${title}">⛓️ Descargar</a>
+                    `;
+                    appContainer.appendChild(appCard);
+                }
+            }
+        } catch (error) {
+            console.error('Error al cargar las aplicaciones:', error);
+        }
+    }
+
+    //yoandy de apartir de aqui hare modificaciones.. lo 
+    // hare asi para intentar no tocar tus codigos a menos 
+    // q o haga y si lo hago lo cometo
+    //nueva funcion de scrow blur
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('.header');
+        const footer = document.querySelector('.footer');
+        
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+            footer.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+            footer.classList.remove('scrolled');
+        }
+    });
+
+    window.addEventListener('scroll', function() {
+        const footer = document.querySelector('.footer');
+        // aqui ydc calculamos si estamos cerca del final)
+        const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 10;
+        
+        if (isAtBottom) {
+            footer.classList.add('expanded');
+        } else {
+            footer.classList.remove('expanded');
+        }
+    });
+
+    // Evento para los botones de expandir
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('expandir-btn')) {
+            const card = e.target.closest('.app-card');
+            const description = card.querySelector('.description-container');
+            const btn = e.target;
+    
+            description.classList.toggle('expanded');
+            btn.textContent = description.classList.contains('expanded') 
+                ? '➖ Ocultar' 
+                : '➕ Expandir para ver más';
+        }
+    });
+
+    // Funcion para pasar a la pantalla de espera desde descarga y hace el conteo
+    document.addEventListener('click', async (e) => {
+      if (e.target.classList.contains('download-button')) {
+        e.preventDefault();
+        const appName = e.target.getAttribute('data-app');
+        const downloadUrl = e.target.getAttribute('href');
+        
+        try {
+          // Mostrar modal de descarga
+          await showDownloadModal(downloadUrl);
+          
+          // Actualizar contador solo después de que el usuario haya esperado
+          const success = await updateDownloadCount(appName);
+          
+          if (success) {
+            // Iniciar descarga real
+            window.location.href = downloadUrl;
+          }
+        } catch (error) {
+          console.error("Error en el proceso de descarga:", error);
+        }
+      }
+    });
+    
+    // Función para mostrar el modal y contar 5 segundos
+    function showDownloadModal(downloadUrl) {
+        return new Promise((resolve) => {
+            const modal = document.getElementById('descargaModal');
+            const countdown = document.getElementById('countdown');
+            const progress = document.querySelector('.descarga-pross');
+            
+            modal.style.display = 'block';
+            progress.style.width = '0%';
+            
+            let seconds = 5;
+            countdown.textContent = seconds;
+            
+            const timer = setInterval(() => {
+                seconds--;
+                countdown.textContent = seconds;
+                
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    progress.style.width = '100%';
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        resolve(); // Resuelve la promesa cuando termina el conteo
+                    }, 600);
+                }
+            }, 1000);
+            
+            document.querySelector('.close-modal').onclick = () => {
+                clearInterval(timer);
+                modal.style.display = 'none';
+                resolve(); // Resuelve la promesa si el usuario cancela
+            };
+        });
+    }
+    
+    // configuración de Google Apps Script
+    const SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRH9f9dmyomb9ywgkPPIg2DFL4Dn5HgaXmXiwZPlgctHLfKxzTmJOmdCCG8EVaTEYxgw/exec"; // aqui va la url de el scrips de google
+    
+    async function updateDownloadCount(appName) {
+      try {
+        const url = `${SHEET_SCRIPT_URL}?app=${encodeURIComponent(appName)}&mode=inc&t=${Date.now()}`;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'text/plain'
+          }
+        });
+        
+        if (!response.ok) throw new Error("Error en la respuesta HTTP");
+        
+        const newCount = await response.text();
+        document.querySelectorAll(`.contador[data-app="${appName}"]`).forEach(el => {
+          el.textContent = newCount;
+        });
+        
+        return true;
+      } catch (error) {
+        console.error("Error al actualizar contador:", error);
+        return false;
+      }
+    }
+
+    
+    async function getDownloadCount(appName) {
+      try {
+        const url = `${SHEET_SCRIPT_URL}?app=${encodeURIComponent(appName)}&mode=get&t=${Date.now()}`;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'text/plain'
+          }
+        });
+        if (!response.ok) throw new Error("Error en la respuesta HTTP");
+        return await response.text();
+      } catch (error) {
+        console.error("Error al obtener contador:", error);
+        return "0";
+      }
+    }
+    
+    // Ejecutar al cargar la página (asegúrate de que no haya duplicados)
+   
+    // Cargar aplicaciones al iniciar
+    window.onload = () => {
+      loadApps();
+      
+      // Cargar contadores después de un pequeño retraso para asegurar que las cards estén creadas
+      setTimeout(() => {
+        const contadores = document.querySelectorAll('.contador');
+        contadores.forEach(async (contador) => {
+          const appName = contador.getAttribute('data-app');
+          const count = await getDownloadCount(appName);
+          contador.textContent = count;
+        });
+      }, 500);
+    };
+    
+        

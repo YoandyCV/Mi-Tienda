@@ -4,23 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Tienda de Aplicaciones</title>
-    <link rel="stylesheet" href="/Styles.css"> <!-- Enlace al archivo CSS externo -->
+    <link rel="icon" type="image/png" href="./recursos/logo.png">
+    <link rel="stylesheet" href="./Styles.css"> <!-- Enlace al archivo CSS externo -->
 </head>
 <body>
+        
+    <script src="./logica.js"></script> <!--Esto es nuevo ydc, cambie los js para un archivo js llamado logica-->
+
+    <!-- Ya comienza web de aqui en adelante-->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="https://t.me/Apps_YCV" target="_blank">Únetenos a Telegram</a>
+        <a href="https://t.me/Apps_YCV" target="_blank">🥳 Únetenos a Telegram</a>
         <p></p>
-        <a href="javascript:void(0)" onclick="document.getElementById('donationModal').style.display='block'">Donaciones</a>
+        <a href="javascript:void(0)" onclick="document.getElementById('donationModal').style.display='block'">💰 Donaciones</a>
+        <img src="recursos/menu-flotante.png" class="menu-flotante">
     </div>
 
     <div class="header">
-        <h1>Mi Tienda de Aplicaciones</h1>
         <div class="menu-button-container">
-            <span class="menu-button" onclick="openNav()">&#9776; Menú</span>
+            <span class="menu-button" onclick="openNav()">&#9776;</span>
         </div>
+        <h13>Mi Tienda de Aplicaciones</h13> <!-- modifique en css lo marco tambien-->
+        <img src="recursos/logo.png" class="logo">
     </div>
-<br>
+<br> <!-- que esto? -->
 <!--
 <marquee behavior="scroll" direction="left" style="color: blue;">
         Añadidos <span style="color: red;">26</span> nuevos diagramas en pdf.
@@ -29,12 +36,32 @@
     <div id="donationModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('donationModal').style.display='none'">&times;</span>
-            <h2>Donaciones</h2>
+            <h2>💰 Donaciones</h2>
             <div class="qr-code">
-                <img src="/qr.jpg" alt="Código QR">
+                <img src="/recursos/qr.jpg" alt="Código QR">
             </div>
             <p>Escanea el código QR para realizar una donación a nuestra cuenta.</p>
         </div>
+    </div>
+
+    <!-- Modal para bienvenida (usa localstorage saldra una sola vez)-->
+    <div id="entrada-modal" class="entrada-modal">
+      <div class="entrada-contenido">
+        <span class="entrada-cerrar">✖</span> <!-- Parar salir -->
+        <h3>👋 ¡Hola, compa de la Electrónica!</h3>
+        <p>No queremos invadirte de anuncios, pero sí pedirte un favorcito:</p>
+        <p>📢 <strong>Comparte el link de la página</strong> con tus colegas de <em>WhatsApp</em> o <em>Telegram</em>.</p>
+        <p>💙 Y si luego tienes tiempo, échale un ojo a <button onclick="document.getElementById('donationModal').style.display='block'">Donaciones</button>.</p>
+        
+        <div class="entrada-botones">
+          <a href="https://t.me/share/url?url=https://mitienda-dajy.onrender.com&text=¡Mira esta tienda de apps para electrónica!" class="entrada-btn">
+            <img src="recursos/telegram.png" alt="Telegram"> Compartir
+          </a>
+          <a href="https://wa.me/?text=¡Mira esta tienda de apps para electrónica! https://mitienda-dajy.onrender.com" class="entrada-btn">
+            <img src="recursos/whatsapp.png" alt="WhatsApp"> Compartir
+          </a>
+        </div>
+      </div>
     </div>
 
     <div class="main-content" id="app-container">
@@ -42,58 +69,39 @@
     </div>
 
     <div class="footer">
-        <p>&copy; 2025 Mi Tienda de Aplicaciones. Todos los derechos reservados.</p>
+        <p>📦 &copy; 2025 Mi Tienda de Aplicaciones. Todos los derechos reservados.</p>
+        <div class="footer-collapsed">
+            💬 Comparte y visítanos:
+            <a href="https://t.me/Apps_YCV" target="_blank">
+                <img src="recursos/telegram.png" class="imagen" alt="Telegram">Únetenos a Telegram
+            </a>
+            <a href="https://chat.whatsapp.com/ECSnDO0juo2KVkpeZW4bYI" target="_blank">
+                <img src="recursos/WhatsApp.png" class="imagen" alt="WhatsApp">Únetenos a grupo de WhatsApp
+            </a>
+            <a href="/recursos/correo.html" target="_blank">
+                <img src="recursos/correo.png" class="imagen" alt="Correo">Envia un Correo al Dev
+            </a>
+        </div>
     </div>
 
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("app-container").style.marginLeft = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("app-container").style.marginLeft = "0";
-        }
-
-        // Cargar aplicaciones desde el archivo apps.txt
-        async function loadApps() {
-            const appContainer = document.getElementById('app-container');
-            appContainer.classList.add('app-container');
-            try {
-                const response = await fetch('apps.txt');
-                const data = await response.text();
-                const lines = data.split('\n');
-                for (let i = 0; i < lines.length; i += 5) {
-                    const title = lines[i].trim();
-                    const description = lines[i + 1].trim();
-                    const link = lines[i + 2].trim();
-                    const icon = lines[i + 3].trim();
-                    const fileSize = lines[i + 4].trim(); // Obtener el tamaño desde la quinta línea
-
-                    if (title && description && link && icon && fileSize) {
-                        const appCard = document.createElement('div');
-                        appCard.className = 'app-card';
-
-                        // Crear el contenido de la tarjeta de la aplicación
-                        appCard.innerHTML = `
-                            <img src="${icon}" alt="${title}" class="app-icon">
-                            <h2>${title}</h2>
-                            <p>${description}</p>
-                            <p><strong>Tamaño:</strong> ${fileSize}</p>
-                            <a href="${link}" class="download-button">Descargar</a>
-                        `;
-
-                        appContainer.appendChild(appCard);
-                    }
-                }
-            } catch (error) {
-                console.error('Error al cargar las aplicaciones:', error);
-            }
-        }
-
-        // Cargar las aplicaciones al cargar la página
-        window.onload = loadApps;
-    </script>
+    <!--Pantalla de carga para contar la descarga-->
+    <div id="descargaModal" class="descarga-modal">
+    <div class="descarga-content">
+        <span class="close-modal">&times;</span>
+        <div class="descarga-header">
+            <h3>📲 Descargando...</h3>
+        </div>
+        <div class="descarga-body">
+            <div class="tiempo-container">
+                <img src="recursos/descarga.gif" class="tiempo-gif"> <!-- Reemplaza con tu GIF luego -->
+                <span id="countdown">5</span> segundos
+            </div>
+            <p class="descarga-info">📥 Tu descarga comenzará automáticamente 🎊</p>
+        </div>
+        <div class="descarga-bar">
+            <div class="descarga-pross"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
