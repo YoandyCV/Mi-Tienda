@@ -1,6 +1,6 @@
 CacharreroTools
 CacharreroTools v1.0 (2011) una version de CalcTool para windows con menos secciones por no actualizarla mas, contiene un identificador del codigo de colores en resistencias.
-./apps/CacharreroTools.zip
+./apps/CacharreroTools_1.0.zip
 ./apps/CacharreroTools.ico
 521 KB
 Catalogo
