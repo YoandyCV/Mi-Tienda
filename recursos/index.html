@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Tienda de Aplicaciones</title>
-    <link rel="icon" type="image/png" href="./recursos/logo.png">
     <link rel="stylesheet" href="./Styles.css"> <!-- Enlace al archivo CSS externo -->
 </head>
 <body>
-        
+    <!-- Firebase App (core) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    
+    
     <script src="./logica.js"></script> <!--Esto es nuevo ydc, cambie los js para un archivo js llamado logica-->
 
     <!-- Ya comienza web de aqui en adelante-->
@@ -17,7 +21,6 @@
         <a href="https://t.me/Apps_YCV" target="_blank">🥳 Únetenos a Telegram</a>
         <p></p>
         <a href="javascript:void(0)" onclick="document.getElementById('donationModal').style.display='block'">💰 Donaciones</a>
-        <img src="./recursos/menu-flotante.png" class="menu-flotante">
     </div>
 
     <div class="header">
@@ -25,7 +28,7 @@
             <span class="menu-button" onclick="openNav()">&#9776;</span>
         </div>
         <h13>Mi Tienda de Aplicaciones</h13> <!-- modifique en css lo marco tambien-->
-        <img src="./recursos/logo.png" class="logo">
+        <img src="recursos/logo.png" class="logo">
     </div>
 <br> <!-- que esto? -->
 <!--
@@ -38,30 +41,10 @@
             <span class="close" onclick="document.getElementById('donationModal').style.display='none'">&times;</span>
             <h2>💰 Donaciones</h2>
             <div class="qr-code">
-                <img src="./recursos/qr.jpg" alt="Código QR">
+                <img src="/recursos/qr.jpg" alt="Código QR">
             </div>
             <p>Escanea el código QR para realizar una donación a nuestra cuenta.</p>
         </div>
-    </div>
-
-    <!-- Modal para bienvenida (usa localstorage saldra una sola vez)-->
-    <div id="entrada-modal" class="entrada-modal">
-      <div class="entrada-contenido">
-        <span class="entrada-cerrar">✄1�7</span> <!-- Parar salir -->
-        <h3>👋 ¡Hola, compa de la Electrónica!</h3>
-        <p>No queremos invadirte de anuncios, pero sí pedirte un favorcito:</p>
-        <p>📢 <strong>Comparte el link de la página</strong> con tus colegas de <em>WhatsApp</em> o <em>Telegram</em>.</p>
-        <p>💙 Y si luego tienes tiempo, échale un ojo a <button onclick="document.getElementById('donationModal').style.display='block'">Donaciones</button>.</p>
-        
-        <div class="entrada-botones">
-          <a href="https://t.me/share/url?url=https://mitienda-dajy.onrender.com&text=¡Mira esta tienda de apps para electrónica!" class="entrada-btn">
-            <img src="./recursos/telegram.png" alt="Telegram"> Compartir
-          </a>
-          <a href="https://wa.me/?text=¡Mira esta tienda de apps para electrónica! https://mitienda-dajy.onrender.com" class="entrada-btn">
-            <img src="./recursos/whatsapp.png" alt="WhatsApp"> Compartir
-          </a>
-        </div>
-      </div>
     </div>
 
     <div class="main-content" id="app-container">
@@ -73,13 +56,13 @@
         <div class="footer-collapsed">
             💬 Comparte y visítanos:
             <a href="https://t.me/Apps_YCV" target="_blank">
-                <img src="./recursos/telegram.png" class="imagen" alt="Telegram">Únetenos a Telegram
+                <img src="recursos/telegram.png" class="imagen" alt="Telegram">Únetenos a Telegram
             </a>
             <a href="https://chat.whatsapp.com/ECSnDO0juo2KVkpeZW4bYI" target="_blank">
-                <img src="./recursos/WhatsApp.png" class="imagen" alt="WhatsApp">Únetenos a grupo de WhatsApp
+                <img src="recursos/WhatsApp.png" class="imagen" alt="WhatsApp">Únetenos a grupo de WhatsApp
             </a>
-            <a href="./recursos/correo.html" target="_blank">
-                <img src="./recursos/correo.png" class="imagen" alt="Correo">Envia un Correo al Dev
+            <a href="/recursos/correo.html" target="_blank">
+                <img src="recursos/correo.png" class="imagen" alt="Correo">Envia un Correo al Dev para resolver dudas
             </a>
         </div>
     </div>
@@ -93,7 +76,7 @@
         </div>
         <div class="descarga-body">
             <div class="tiempo-container">
-                <img src="./recursos/descarga.gif" class="tiempo-gif"> <!-- Reemplaza con tu GIF luego -->
+                <img src="recursos/descarga.gif" class="tiempo-gif"> <!-- Reemplaza con tu GIF luego -->
                 <span id="countdown">5</span> segundos
             </div>
             <p class="descarga-info">📥 Tu descarga comenzará automáticamente 🎊</p>

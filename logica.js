@@ -52,18 +52,25 @@ function openNav() {
     // hare asi para intentar no tocar tus codigos a menos 
     // q o haga y si lo hago lo cometo
     //nueva funcion de scrow blur
+    let isScrolling;
     window.addEventListener('scroll', function() {
-        const header = document.querySelector('.header');
-        const footer = document.querySelector('.footer');
+        // Cancelar el timeout anterior
+        window.clearTimeout(isScrolling);
         
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-            footer.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-            footer.classList.remove('scrolled');
-        }
-    });
+        // Configurar un nuevo timeout
+        isScrolling = setTimeout(function() {
+            const header = document.querySelector('.header');
+            const footer = document.querySelector('.footer');
+            
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+                footer.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+                footer.classList.remove('scrolled');
+            }
+        }, 66); // Ejecuta cada ~66ms (15fps) en lugar de a cada evento
+    }, false);
 
     window.addEventListener('scroll', function() {
         const footer = document.querySelector('.footer');
@@ -223,4 +230,3 @@ function openNav() {
       loadInitialCounters(); // Carga los contadores de cada targeta sin incrementar el contador de descargas
     }, 2000); // lo se ! > le di tiempo y es para q las personas con 2g le de tiempo arenderizar el conteo cuando se renderise las cartas
   };
-            
