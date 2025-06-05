@@ -1,3 +1,8 @@
+Sim Basic Tools
+SIM BASIC TOOLS_ v2.5 una app creada por Lenioy para realizar operaciones de paqueteriía y saldo en nuestros móviles de una forma mas sencilla, asi como otras utilidades en nuestra SIM.
+./apps/SIM BASIC TOOLS_2.5.apk
+./apps/SIM BASIC TOOLS.jpg
+137 KB
 CacharreroTools
 CacharreroTools v1.0 (2011) una version de CalcTool para windows con menos secciones por no actualizarla mas, contiene un identificador del codigo de colores en resistencias.
 ./apps/CacharreroTools_1.0.zip
