@@ -1,5 +1,5 @@
 Sim Basic Tools
-SIM BASIC TOOLS_ v2.5 una app creada por Lenioy para realizar operaciones de paqueteriía y saldo en nuestros móviles de una forma mas sencilla, asi como otras utilidades en nuestra SIM.
+SIM BASIC TOOLS_ v2.5 una app creada por Lenioy para gestionar los paquetes de datos y saldo del móvil así como otras utilidades en nuestra tarjeta SIM.
 ./apps/SIM BASIC TOOLS_2.5.apk
 ./apps/SIM BASIC TOOLS.jpg
 137 KB
