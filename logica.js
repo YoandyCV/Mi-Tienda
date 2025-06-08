@@ -183,7 +183,7 @@ function openNav() {
   });
     
   // configuración de Google Apps Script
-  const SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0R5ieu8nvvCEfmv4dU6WaXVX2FobREcuEFzSOc7ah9fe8uxs7QI64P_Ddj_pE5vQmtA/exec"; // yoandy aqui cambiamos la url por la q crearas mas adelante.. si quieres!
+  const SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-rNyzyNBs4IMx0QuGoZ827Uw9C1fYTdfffk7bfRINTsN3mExf8XgztaR6N_wDiYPG3g/exec"; // yoandy aqui cambiamos la url por la q crearas mas adelante.. si quieres!
   
   async function updateDownloadCount(appName) { // esta funcion actualiza el contador de descargas
     try {
