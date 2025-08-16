@@ -11,7 +11,7 @@ CacharreroTools v1.0 (2011) una version de CalcTool para windows con menos secci
 Catalogo
 Catalogo es una aplicación para Windows que contiene datos sobre componentes de construcción rusa y nacional.
 ./apps/Catalogo_ruso_nacional.zip
-./apps/Catalogo_ruso_nacional.ico
+./apps/Catalogo.jpg
 610K KB
 4G Swit
 4G Swit v1.1 una simple app para forzar la 4G y otras configuraciones en nuestro movil.

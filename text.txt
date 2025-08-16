@@ -216,7 +216,7 @@ function openNav() {
     }
     
     // configuración de Google Apps Script
-    const SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRH9f9dmyomb9ywgkPPIg2DFL4Dn5HgaXmXiwZPlgctHLfKxzTmJOmdCCG8EVaTEYxgw/exec"; // aqui va la url de el scrips de google
+    const SHEET_SCRIPT_URL = "https://docs.google.com/spreadsheets/d/1HnwORWzNcut9Pn4j4p6JIajXM7mfvS6zpZ9S_C7NS5k/edit?usp=drivesdk"; // aqui va la url de el scrips de google
     
     async function updateDownloadCount(appName) {
       try {
