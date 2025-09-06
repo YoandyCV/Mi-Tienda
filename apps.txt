@@ -1,3 +1,8 @@
+BD Roturas
+BD Roturas v1.1 una app de de blogs compartido donde podrá encontrar o conteibribuir con TIPs de roturas que fueron solucionandos.
+./apps/BD Roturas_1.1.apk
+./apps/BD Roturas.png
+4.37 MB
 Sim Basic Tools
 SIM BASIC TOOLS_ v2.6 una app creada por Lenioy para gestionar los paquetes de datos y saldo del móvil así como otras utilidades en nuestra tarjeta SIM.
 ./apps/SIM BASIC TOOLS_2.6.apk
