@@ -1,5 +1,5 @@
 Speed Multimedia
-Speed es un software Creado por Pi�ir� (Por ahora para PC) diseñado para organizar y disfrutar toda tu multimedia de una forma comoda y sencilla. Puede visitar su pagina en https://speed2-1urw.onrender.com/ o descargarla directamente en el botón de abajo.👇
+Speed es un software Creado por Piñirí (Por ahora para PC) diseñado para organizar y disfrutar toda tu multimedia de una forma comoda y sencilla. Puede visitar su pagina en https://speed2-1urw.onrender.com/ o descargarla directamente en el botón de abajo.👇
 https://github.com/Mike2Abraham/SPEED-ELECTRONIC-AUDIO-2.0/releases/download/SPM-sub2.2/SPEED.v2.2.0.7z
 ./apps/speed.jpg
 160Mb
