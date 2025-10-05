@@ -4,10 +4,10 @@ https://github.com/Mike2Abraham/SPEED-ELECTRONIC-AUDIO-2.0/releases/download/SPM
 ./apps/speed.jpg
 160Mb
 BD Roturas
-BD Roturas v1.1 una app de de blogs compartido donde podrá encontrar o contribuir con TIPs de roturas que fueron solucionandos.
-./apps/BD Roturas_1.1.apk
+BD Roturas v1.2 una app de de blogs compartido donde podrá encontrar o contribuir con TIPs de roturas que fueron solucionandos.
+./apps/BD Roturas_1.2.apk
 ./apps/BD Roturas.png
-4.37 MB
+4.58 MB
 Sim Basic Tools
 SIM BASIC TOOLS_ v2.6 una app creada por Lenioy para gestionar los paquetes de datos y saldo del móvil así como otras utilidades en nuestra tarjeta SIM.
 ./apps/SIM BASIC TOOLS_2.6.apk
