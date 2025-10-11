@@ -34,10 +34,10 @@ Diagramas 2.0 App desde donde puedes ver y descargar diagramas de la colección 
 ./apps/Diagramas.png
 1.78 MB
 CalcTool
-CalcTool 4.6 Util Herramienta Para El Calculo Cotidiano En Nuestro Taller.
-./apps/CalcTool_4.6.apk
+CalcTool 4.7 Util Herramienta Para El Calculo Cotidiano En Nuestro Taller.
+./apps/CalcTool_4.7.apk
 ./apps/CalcTool.png
-1.88 MB
+1.92 MB
 Web To Pdf
 Web To Pdf V1.0 Guarda El Contenido De Una Pagina Web En Un Archivo Pdf.
 ./apps/Web To Pdf_1.0.apk
