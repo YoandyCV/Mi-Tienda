@@ -179,8 +179,12 @@ async function loadInitialCounters() {
     }
 }
 
-// Inicialización corregida
+// Inicialización corregida con render delay
 document.addEventListener('DOMContentLoaded', async () => {
     await loadApps();
-    await loadInitialCounters();
+    requestAnimationFrame(() => {
+        setTimeout(() => {
+            loadInitialCounters();
+        }, 300);
+    });
 });
