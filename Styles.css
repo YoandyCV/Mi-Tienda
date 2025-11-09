@@ -32,7 +32,7 @@ body {
     padding: 1rem;
     margin-left: 0;
     margin-bottom: 70px;
-    transition: margin-left 6.5s;
+    transition: margin-left 0.5s;
 }
 
 .main-content.menu-open {
@@ -45,7 +45,7 @@ body {
     justify-content: space-around;
 }
 
-.app-card { /* modificado*/
+.app-card {
     background-color: #1e1e1e;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
@@ -58,6 +58,8 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #333;
     text-align: center;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 @keyframes fadeIn {
@@ -72,7 +74,7 @@ body {
 }
 
 .app-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) translateZ(0);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -85,7 +87,7 @@ body {
     font-size: 1.5rem;
     margin: 0px;
     text-shadow: 0 0 5px #fffffff2;
-    margin-top: -26px; /*modificacion*/
+    margin-top: -26px;
 }
 
 .app-card p {
@@ -107,7 +109,7 @@ body {
     transform: scale(1.05);
 }
 
-.sidenav { /* modificado*/
+.sidenav {
     height: 100%;
     width: 0;
     position: fixed;
@@ -130,7 +132,7 @@ body {
     border-bottom: 1px solid #34495e;
 }
 
-.main-content { /* evito aqui q las cards y demas se corran*/
+.main-content {
     margin-left: 0 !important;
     transition: none;
 }
@@ -142,7 +144,7 @@ body {
     padding-left: 40px;
 }
 
-.sidenav .closebtn {  /* modificado*/
+.sidenav .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
@@ -161,7 +163,7 @@ body {
 .modal {
     display: none;
     position: fixed;
-    z-index: 200; /*modificado*/
+    z-index: 200;
     padding-top: 60px;
     left: 0;
     top: 0;
@@ -215,6 +217,7 @@ body {
 .qr-code img:hover {
     transform: scale(1.1);
 }
+
 .app-card p strong {
     color: #2976c3;
 }
@@ -224,31 +227,31 @@ body {
     font-weight: bold;
 }
 
-/*modificaciones*/
-
-/* Yoandy aqui declaro una fuente global*/
+/* Fuente global optimizada */
 @font-face {
     font-family: 'TituloTienda';
-    src: url('fuentes/SugarFruit.otf') format('truetype'),
-         url('fuentes/Evil\ Empire.otf') format('otf');
+    src: url('fuentes/SugarFruit.otf') format('opentype'),
+         url('fuentes/Evil Empire.otf') format('opentype');
+    font-display: swap;
 }
 
 .app-card img {
     width: 100px;
     height: 100px;
-    animation: flotar-rotar 4s ease-in-out infinite;
+    animation: float 3s ease-in-out infinite;
     filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.308));
     top: -20px;
     position: relative;
-    animation: float 3s ease-in-out infinite;
+    loading: lazy;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 @keyframes float {
     0%, 100% {
-        transform: translateY(0);
+        transform: translateY(0) translateZ(0);
     }
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-10px) translateZ(0);
     }
 }
 
@@ -257,17 +260,18 @@ body {
     top: 0;
     z-index: 100;
     transition: all 0.3s ease;
+    will-change: transform;
 }
 
-.header.scrolled { /* aqui controlo el blur al hacer scrolw*/
+.header.scrolled {
     background: rgb(30 30 30 / 30%);
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     padding: 0.5rem 1rem;
     box-shadow: 0 2px 10px rgb(0 0 0 / 86%);
 }
 
-/* Boton del Menu*/
-
+/* Boton del Menu */
 .menu-button {
     font-size: 14px;
     cursor: pointer;
@@ -278,7 +282,6 @@ body {
     display: inline-block;
     transition: all 0.3s;
     background-color: #1a1a1a;
-
     margin-right: 0px;
     text-align: left;
     margin-top: 0px;
@@ -292,7 +295,7 @@ body {
 }
 
 /* Header normal */
-.header { /*tuve q hacer al footer independiente*/
+.header {
     background: linear-gradient(270deg, #4CAF50, #2196F3, #ffffff);
     background-size: 200% 200%;
     animation: gradientAnimation 10s ease infinite;
@@ -305,7 +308,7 @@ body {
     flex-wrap: nowrap;
 }
 
-/* yonady aqui se controla el scroll del footer de abajo */
+/* Footer optimizado */
 .footer {
     position: fixed;
     bottom: 0;
@@ -313,6 +316,7 @@ body {
     border-top: 4px solid rgba(255, 255, 255, 0.452);
     background: rgba(30, 30, 30, 0.116);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     max-height: 60px;  
     transition: all 0.5s ease; 
     overflow: hidden;  
@@ -320,10 +324,8 @@ body {
 }
 
 .footer-expanded {
-    display: none;  /* Oculto inicialmente */
-    padding: 1005px;
+    display: none;
 }
-
 
 .footer-collapsed {
     padding: 14px;
@@ -336,7 +338,7 @@ body {
     text-shadow: 0 0 5px #121212;
 }
 
-/*ESTADO EXPANDIDO (al final de la página)*/
+/*ESTADO EXPANDIDO*/
 .footer.expanded {
     max-height: 200px;
     background: linear-gradient(270deg, #4CAF50, #2196F3, #ffffff);
@@ -352,25 +354,18 @@ body {
     color: #8e21f3;
 }
 
-/* ydc esto es la animacion del titulo h13 */
+/* Animación del título optimizada */
 h13 {
     font-size: 20px;
     white-space: nowrap;
     color: #ffffff;
-    font-family:'titulotienda';
+    font-family: 'TituloTienda', Arial, sans-serif;
     display: flex;
     align-items: center;
-    color: white;
     margin: 7px;
     position: relative;
     text-shadow: 0 0 10px rgba(25, 0, 255, 0.795);
-
-    background: linear-gradient(90deg, 
-        #8A2BE2,
-        #ff3300,
-        #fcfafa,
-        #ff6600 
-    );
+    background: linear-gradient(90deg, #8A2BE2, #ff3300, #fcfafa, #ff6600);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -404,19 +399,17 @@ p {
     text-shadow: 0 0 10px rgb(22, 22, 22);
 }
 
-/* css para expandir */
+/* CSS para expandir optimizado */
 .description-container {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-out;
 }
 
-/* lo q se ve cuando se expande */
 .description-container.expanded {
-    max-height: 200px; /* ydc si no te cuadra ajusta qui para el contenido */
+    max-height: 200px;
 }
 
-/* Botón de expandir */
 .expandir-btn {
     width: 100%;
     padding: 8px;
@@ -433,12 +426,11 @@ p {
     background-color: rgba(142, 33, 243, 0.1);
 }
 
-/* Ocultar el botón "Expandir" cuando la descripción está visible */
 .expandir-btn.hide {
     display: none;
 }
 
-/* Modal de descarga */
+/* Modal de descarga optimizado */
 .descarga-modal {
     display: none;
     position: fixed;
@@ -449,6 +441,7 @@ p {
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 2000;
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .descarga-content {
@@ -478,11 +471,12 @@ p {
 }
 
 .tiempo-gif {
-    width: 80px; /* ydc Tamaño del del GIF */
+    width: 80px;
     height: 80px;
     align-items: center;
     margin-left: 114px;
     margin-bottom: 10px;
+    image-rendering: optimizeSpeed;
 }
 
 .descarga-info {
@@ -517,7 +511,7 @@ p {
     color: #fff;
 }
 
-/* css para contador de descargas */
+/* CSS para contador de descargas */
 .descarga-contador {
     font-size: 17px;
     text-shadow: black 0px 0px 2px;
@@ -550,10 +544,10 @@ p {
     opacity: calc(0.6);
     margin-top: 60px;
     margin-left: -31px;
+    loading: lazy;
 }
 
-/*modal para la entrada a la web por primera vez*/
-/* Modal de Entrada */
+/* Modal para la entrada optimizado */
 .entrada-modal {
   display: none;
   position: fixed;
@@ -563,6 +557,7 @@ p {
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   z-index: 9999;
   align-items: center;
   justify-content: center;
@@ -576,11 +571,12 @@ p {
   text-align: center;
   border: 2px solid #8e21f3;
   animation: entradaScale 0.3s ease;
+  transform: translateZ(0);
 }
 
 @keyframes entradaScale {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from { transform: scale(0.9) translateZ(0); opacity: 0; }
+  to { transform: scale(1) translateZ(0); opacity: 1; }
 }
 
 .entrada-botones {
@@ -597,11 +593,13 @@ p {
   display: flex;
   align-items: center;
   transition: all 0.3s;
+  text-decoration: none;
+  color: #000;
 }
 
 .entrada-btn:hover {
   background: #8e21f3;
-  transform: translateY(-3px);
+  transform: translateY(-3px) translateZ(0);
 }
 
 .entrada-btn img {
@@ -620,4 +618,35 @@ p {
 
 .entrada-cerrar:hover {
   color: #fff;
+}
+
+/* Media query para reducir movimiento si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce) {
+    .app-card, .sidenav, .menu-button, .entrada-btn, .qr-code img {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .app-card:hover {
+        transform: none;
+    }
+}
+
+/* Optimización para móviles */
+@media (max-width: 768px) {
+    .app-card {
+        width: 90%;
+        margin-bottom: 50px;
+        padding: 15px;
+    }
+    
+    .descarga-content {
+        margin: 30% auto;
+        width: 90%;
+    }
+    
+    .tiempo-gif {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

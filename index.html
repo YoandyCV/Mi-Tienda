@@ -5,81 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Tienda de Aplicaciones</title>
     <link rel="icon" type="image/png" href="./recursos/logo.png">
-    <link rel="stylesheet" href="./Styles.css"> <!-- Enlace al archivo CSS externo -->
+    
+    <!-- CSS CRÍTICO INLINE -->
+    <style>
+        body {
+            background-color: #121212;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #e0e0e0;
+        }
+        .header, .app-card, .main-content {
+            opacity: 1;
+        }
+        /* Evitar FOUC */
+        .sidenav { display: none; }
+        .modal { display: none; }
+    </style>
+    
+    <!-- PRELOAD DE RECURSOS CRÍTICOS -->
+    <link rel="preload" href="./Styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="./recursos/fondo.png" as="image">
+    <link rel="preload" href="./recursos/logo.png" as="image">
+    <link rel="preconnect" href="https://script.google.com">
+    <link rel="preconnect" href="https://t.me">
+    
+    <noscript><link rel="stylesheet" href="./Styles.css"></noscript>
 </head>
 <body>
-        
-    <script src="./logica.js"></script> <!--Esto es nuevo ydc, cambie los js para un archivo js llamado logica-->
+    <script src="./logica.js"></script>
 
     <!-- Ya comienza web de aqui en adelante-->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="https://t.me/Apps_YCV" target="_blank">馃コ 脷netenos a Telegram</a>
+        <a href="https://t.me/Apps_YCV" target="_blank">📱 Únetenos a Telegram</a>
         <p></p>
-        <a href="javascript:void(0)" onclick="document.getElementById('donationModal').style.display='block'">馃挵 Donaciones</a>
-        <img src="./recursos/menu-flotante.png" class="menu-flotante">
+        <a href="javascript:void(0)" onclick="document.getElementById('donationModal').style.display='block'">💳 Donaciones</a>
+        <img src="./recursos/menu-flotante.png" class="menu-flotante" loading="lazy" alt="Menú">
     </div>
 
     <div class="header">
         <div class="menu-button-container">
             <span class="menu-button" onclick="openNav()">&#9776;</span>
         </div>
-        <h13>Mi Tienda de Aplicaciones</h13> <!-- modifique en css lo marco tambien-->
-        <img src="./recursos/logo.png" class="logo">
+        <h13>Mi Tienda de Aplicaciones</h13>
+        <img src="./recursos/logo.png" class="logo" loading="eager" alt="Logo" width="40" height="40">
     </div>
-<br> <!-- que esto? -->
-<!--
-<marquee behavior="scroll" direction="left" style="color: blue;">
-        A帽adidos <span style="color: red;">26</span> nuevos diagramas en pdf.
-    </marquee>
--->
+
+    <br>
+
     <div id="donationModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="document.getElementById('donationModal').style.display='none'">&times;</span>
-            <h2>馃挵 Donaciones</h2>
+            <h2>💳 Donaciones</h2>
             <div class="qr-code">
-                <img src="./recursos/qr.jpg" alt="C贸digo QR">
+                <img src="./recursos/qr.jpg" alt="Código QR" loading="lazy" width="200" height="200">
             </div>
-            <p>Escanea el c贸digo QR para realizar una donaci贸n a nuestra cuenta.</p>
+            <p>Escanea el código QR para realizar una donación a nuestra cuenta.</p>
         </div>
     </div>
 
-    <!-- Modal para bienvenida (usa localstorage saldra una sola vez)-->
+    <!-- Modal para bienvenida -->
     <div id="entrada-modal" class="entrada-modal">
       <div class="entrada-contenido">
-        <span class="entrada-cerrar">鉁�</span> <!-- Parar salir -->
-        <h3>馃憢 隆Hola, compa de la Electr贸nica!</h3>
-        <p>No queremos invadirte de anuncios, pero s铆 pedirte un favorcito:</p>
-        <p>馃摙 <strong>Comparte el link de la p谩gina</strong> con tus colegas de <em>WhatsApp</em> o <em>Telegram</em>.</p>
-        <p>馃挋 Y si luego tienes tiempo, 茅chale un ojo a <button onclick="document.getElementById('donationModal').style.display='block'">Donaciones</button>.</p>
+        <span class="entrada-cerrar">✔️</span>
+        <h3>👋 ¡Hola, compa de la Electrónica!</h3>
+        <p>No queremos invadirte de anuncios, pero sí pedirte un favorcito:</p>
+        <p>📢 <strong>Comparte el link de la página</strong> con tus colegas de <em>WhatsApp</em> o <em>Telegram</em>.</p>
+        <p>💳 Y si luego tienes tiempo, échale un ojo a <button onclick="document.getElementById('donationModal').style.display='block'">Donaciones</button>.</p>
         
         <div class="entrada-botones">
-          <a href="https://t.me/share/url?url=https://mitienda-dajy.onrender.com&text=隆Mira esta tienda de apps para electr贸nica!" class="entrada-btn">
-            <img src="./recursos/telegram.png" alt="Telegram"> Compartir
+          <a href="https://t.me/share/url?url=https://mitienda-dajy.onrender.com&text=¡Mira esta tienda de apps para electrónica!" class="entrada-btn">
+            <img src="./recursos/telegram.png" alt="Telegram" width="24" height="24"> Compartir
           </a>
-          <a href="https://wa.me/?text=隆Mira esta tienda de apps para electr贸nica! https://mitienda-dajy.onrender.com" class="entrada-btn">
-            <img src="./recursos/whatsapp.png" alt="WhatsApp"> Compartir
+          <a href="https://wa.me/?text=¡Mira esta tienda de apps para electrónica! https://mitienda-dajy.onrender.com" class="entrada-btn">
+            <img src="./recursos/whatsapp.png" alt="WhatsApp" width="24" height="24"> Compartir
           </a>
         </div>
       </div>
     </div>
 
     <div class="main-content" id="app-container">
-        <!-- Las aplicaciones ser谩n cargadas aqu铆 -->
+        <!-- Las aplicaciones serán cargadas aquí -->
     </div>
 
     <div class="footer">
-        <p>馃摝 &copy; 2025 Mi Tienda de Aplicaciones. Todos los derechos reservados.</p>
+        <p>📦 &copy; 2025 Mi Tienda de Aplicaciones. Todos los derechos reservados.</p>
         <div class="footer-collapsed">
-            馃挰 Comparte y vis铆tanos:
+            📢 Comparte y visítanos:
             <a href="https://t.me/Apps_YCV" target="_blank">
-                <img src="./recursos/telegram.png" class="imagen" alt="Telegram">脷netenos a Telegram
+                <img src="./recursos/telegram.png" class="imagen" alt="Telegram" width="22" height="22">Únetenos a Telegram
             </a>
             <a href="https://chat.whatsapp.com/ECSnDO0juo2KVkpeZW4bYI" target="_blank">
-                <img src="./recursos/WhatsApp.png" class="imagen" alt="WhatsApp">脷netenos a grupo de WhatsApp
+                <img src="./recursos/WhatsApp.png" class="imagen" alt="WhatsApp" width="22" height="22">Únetenos a grupo de WhatsApp
             </a>
             <a href="./recursos/correo.html" target="_blank">
-                <img src="./recursos/correo.png" class="imagen" alt="Correo">Envia un Correo al Dev
+                <img src="./recursos/correo.png" class="imagen" alt="Correo" width="22" height="22">Envia un Correo al Dev
             </a>
         </div>
     </div>
@@ -89,14 +110,14 @@
     <div class="descarga-content">
         <span class="close-modal">&times;</span>
         <div class="descarga-header">
-            <h3>馃摬 Descargando...</h3>
+            <h3>📲 Descargando...</h3>
         </div>
         <div class="descarga-body">
             <div class="tiempo-container">
-                <img src="./recursos/descarga.gif" class="tiempo-gif"> <!-- Reemplaza con tu GIF luego -->
+                <img src="./recursos/descarga.gif" class="tiempo-gif" alt="Descargando" width="80" height="80">
                 <span id="countdown">5</span> segundos
             </div>
-            <p class="descarga-info">馃摜 Tu descarga comenzar谩 autom谩ticamente 馃帄</p>
+            <p class="descarga-info">🔥 Tu descarga comenzará automáticamente 🎉</p>
         </div>
         <div class="descarga-bar">
             <div class="descarga-pross"></div>
