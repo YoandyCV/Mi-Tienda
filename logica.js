@@ -98,6 +98,8 @@ document.addEventListener('click', async (e) => {
     const downloadConfirmed = await showDownloadModal(downloadUrl, appName);
     
     if (downloadConfirmed) {
+      // SOLO AQUÍ se actualiza el contador cuando realmente se descarga
+      await updateDownloadCount(appName);
       window.location.href = downloadUrl;
     }
   }
@@ -125,11 +127,8 @@ async function showDownloadModal(downloadUrl, appName) {
             if (seconds <= 0) {
                 clearInterval(timer);
                 progress.style.width = '100%';
-                setTimeout(async () => {
+                setTimeout(() => {
                     modal.style.display = 'none';
-                    
-                    // SOLO AQUÍ SE ACTUALIZA EL CONTADOR - cuando realmente se descarga
-                    await updateDownloadCount(appName);
                     resolve(true);
                 }, 600);
             }
@@ -167,10 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Configuración de Google Apps Script
+// =============================================
+// SISTEMA DE CONTADORES - RESPETANDO TU CÓDIGO ACTUAL
+// =============================================
+
+// RESPETO TU URL DEL APP SCRIPT ACTUAL
 const SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwrLsJhrrps_-BzzKUfII7vcEwYK3Zk4uaqUmTugxswKoC_qBgTBV2loWLT2UTnN37f/exec";
 
-// FUNCIÓN CORREGIDA: Solo incrementa cuando hay descarga real
+// Función para actualizar contador (SOLO cuando hay descarga real)
 async function updateDownloadCount(appName) {
     try {
         console.log(`🔄 Actualizando contador para: ${appName}`);
@@ -184,7 +187,7 @@ async function updateDownloadCount(appName) {
         const newCount = await response.text();
         console.log(`✅ Contador actualizado: ${appName} = ${newCount}`);
         
-        // Actualizar TODOS los contadores con el mismo nombre de app
+        // Actualizar TODOS los contadores con el mismo nombre
         document.querySelectorAll(`.contador[data-app="${appName}"]`).forEach(el => {
             el.textContent = newCount;
         });
@@ -192,14 +195,12 @@ async function updateDownloadCount(appName) {
         return newCount;
     } catch (error) {
         console.error("❌ Error al actualizar contador:", error);
-        // Mostrar error al usuario
-        document.querySelectorAll(`.contador[data-app="${appName}"]`).forEach(el => {
-            el.textContent = "Error";
-        });
+        // Fallback: incremento local
+        incrementLocalCounter(appName);
     }
 }
 
-// FUNCIÓN CORREGIDA: Solo lectura, nunca incrementa
+// Función para obtener contador (SOLO LECTURA, no incrementa)
 async function getDownloadCount(appName) { 
     try {
         console.log(`📊 Obteniendo contador para: ${appName}`);
@@ -222,11 +223,20 @@ async function getDownloadCount(appName) {
         }
     } catch (error) {
         console.error("❌ Error al obtener contador:", error);
-        return "0"; // Valor por defecto
+        return "0";
     }
 }
 
-// FUNCIÓN CORREGIDA: Carga inicial SIN duplicaciones
+// Fallback local si falla el servidor
+function incrementLocalCounter(appName) {
+    const counters = document.querySelectorAll(`.contador[data-app="${appName}"]`);
+    counters.forEach(counter => {
+        const current = parseInt(counter.textContent) || 0;
+        counter.textContent = (current + 1).toString();
+    });
+}
+
+// Cargar contadores iniciales (SOLO LECTURA)
 async function loadInitialCounters() {
     try {
         console.log("🔄 Iniciando carga de contadores...");
@@ -234,17 +244,16 @@ async function loadInitialCounters() {
         
         console.log(`📊 Encontrados ${counters.length} contadores`);
         
-        // Usar Promise.all para cargar todos simultáneamente
-        const promises = Array.from(counters).map(async (counter) => {
+        // Cargar todos los contadores
+        for (const counter of counters) {
             const appName = counter.getAttribute('data-app');
             if (appName) {
                 const currentCount = await getDownloadCount(appName);
                 counter.textContent = currentCount;
                 console.log(`✅ Contador cargado: ${appName} = ${currentCount}`);
             }
-        });
+        }
         
-        await Promise.all(promises);
         console.log("🎯 Todos los contadores cargados correctamente");
         
     } catch (error) {
@@ -252,40 +261,30 @@ async function loadInitialCounters() {
     }
 }
 
-// CARGA OPTIMIZADA Y CORREGIDA
+// =============================================
+// INICIALIZACIÓN CORREGIDA - SIN DUPLICACIONES
+// =============================================
+
+// Inicialización optimizada
 document.addEventListener('DOMContentLoaded', function() {
     console.log("🚀 Iniciando carga de la aplicación...");
     
-    // 1. Primero cargar las apps (estructura visual)
+    // 1. Cargar aplicaciones primero
     loadApps();
     
-    // 2. Esperar a que el DOM esté completamente listo para los contadores
-    if (document.readyState === 'complete') {
-        console.log("📄 DOM ya completo, cargando contadores...");
+    // 2. Esperar a que las tarjetas se rendericen, luego cargar contadores
+    setTimeout(() => {
         loadInitialCounters();
-    } else {
-        console.log("⏳ Esperando carga completa del DOM...");
-        window.addEventListener('load', function() {
-            console.log("📄 DOM completamente cargado, cargando contadores...");
-            // Pequeño delay para asegurar que las tarjetas se rendericen
-            setTimeout(loadInitialCounters, 500);
-        });
-    }
+    }, 500);
 });
 
-// Medición de performance y debug
+// Debug final
 window.addEventListener('load', function() {
     setTimeout(() => {
-        if (performance.timing.loadEventEnd > 0) {
-            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-            console.log('🚀 Tiempo de carga total:', loadTime + 'ms');
-        }
+        console.log('✅ Página completamente cargada');
         
-        // Debug: verificar contadores en consola
+        // Verificar estado final de contadores
         const counters = document.querySelectorAll('.contador');
-        console.log(`🔍 Estado final - Contadores encontrados: ${counters.length}`);
-        counters.forEach(counter => {
-            console.log(`📱 ${counter.getAttribute('data-app')}: ${counter.textContent}`);
-        });
+        console.log(`🔍 Contadores en DOM: ${counters.length}`);
     }, 1000);
 });
