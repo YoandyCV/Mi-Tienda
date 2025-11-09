@@ -266,16 +266,14 @@ async function loadInitialCounters() {
 // =============================================
 
 // Inicialización optimizada
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     console.log("🚀 Iniciando carga de la aplicación...");
     
-    // 1. Cargar aplicaciones primero
-    loadApps();
+    // 1. Esperar a que se carguen las aplicaciones
+    await loadApps();
     
-    // 2. Esperar a que las tarjetas se rendericen, luego cargar contadores
-    setTimeout(() => {
-        loadInitialCounters();
-    }, 500);
+    // 2. Luego cargar los contadores
+    await loadInitialCounters();
 });
 
 // Debug final
