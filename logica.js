@@ -34,7 +34,7 @@ async function loadApps() {
                     </div>
                     <p><strong>📦 Tamaño:</strong> ${fileSize}</p>
                     <div class="descarga-contador">⬇️ Descargas: <span class="contador" data-app="${title}">0</span></div>
-                    <a href="${lines[i+2].trim()}" class="download-button" data-app="${title}">⛓️ Descargar</a>
+                    <a href="${link}" class="download-button" data-app="${title}">⛓️ Descargar</a>
                 `;
                 appContainer.appendChild(appCard);
             }
@@ -44,15 +44,13 @@ async function loadApps() {
     }
 }
 
-// Scroll optimizado con debounce
+// Scroll optimizado
 let isScrolling;
 window.addEventListener('scroll', function() {
     window.clearTimeout(isScrolling);
-    
     isScrolling = setTimeout(function() {
         const header = document.querySelector('.header');
         const footer = document.querySelector('.footer');
-        
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
             footer.classList.add('scrolled');
@@ -66,64 +64,46 @@ window.addEventListener('scroll', function() {
 window.addEventListener('scroll', function() {
     const footer = document.querySelector('.footer');
     const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 10;
-    
-    if (isAtBottom) {
-        footer.classList.add('expanded');
-    } else {
-        footer.classList.remove('expanded');
-    }
+    footer.classList.toggle('expanded', isAtBottom);
 });
 
-// Evento para los botones de expandir
+// Expandir descripción
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('expandir-btn')) {
         const card = e.target.closest('.app-card');
         const description = card.querySelector('.description-container');
-        const btn = e.target;
-
         description.classList.toggle('expanded');
-        btn.textContent = description.classList.contains('expanded') 
-            ? '➖ Ocultar' 
-            : '➕ Expandir para ver más';
+        e.target.textContent = description.classList.contains('expanded') ? '➖ Ocultar' : '➕ Expandir para ver más';
     }
 });
 
-// Función para manejar descargas
+// Modal de descarga
 document.addEventListener('click', async (e) => {
-  if (e.target.classList.contains('download-button')) {
-    e.preventDefault();
-    const appName = e.target.getAttribute('data-app');
-    const downloadUrl = e.target.getAttribute('href');
-    
-    const downloadConfirmed = await showDownloadModal(downloadUrl, appName);
-    
-    if (downloadConfirmed) {
-      // SOLO AQUÍ se actualiza el contador cuando realmente se descarga
-      await updateDownloadCount(appName);
-      window.location.href = downloadUrl;
+    if (e.target.classList.contains('download-button')) {
+        e.preventDefault();
+        const appName = e.target.getAttribute('data-app');
+        const downloadUrl = e.target.getAttribute('href');
+        const confirmed = await showDownloadModal(downloadUrl, appName);
+        if (confirmed) {
+            await updateDownloadCount(appName);
+            window.location.href = downloadUrl;
+        }
     }
-  }
 });
 
-// Función para mostrar el modal de descarga
 async function showDownloadModal(downloadUrl, appName) {
     return new Promise((resolve) => {
         const modal = document.getElementById('descargaModal');
         const countdown = document.getElementById('countdown');
         const progress = document.querySelector('.descarga-pross');
-        
         modal.style.display = 'block';
         progress.style.width = '0%';
-        
         let seconds = 5;
         countdown.textContent = seconds;
-        
         const timer = setInterval(() => {
             seconds--;
             countdown.textContent = seconds;
-            
             progress.style.width = `${100 - (seconds * 20)}%`;
-            
             if (seconds <= 0) {
                 clearInterval(timer);
                 progress.style.width = '100%';
@@ -133,7 +113,6 @@ async function showDownloadModal(downloadUrl, appName) {
                 }, 600);
             }
         }, 1000);
-        
         document.querySelector('.close-modal').onclick = () => {
             clearInterval(timer);
             modal.style.display = 'none';
@@ -142,147 +121,66 @@ async function showDownloadModal(downloadUrl, appName) {
     });
 }
 
-// Modal de entrada
+// Modal de bienvenida
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('entrada-modal');
     const btnCerrar = document.querySelector('.entrada-cerrar');
-  
     if (!localStorage.getItem('modalVisto')) {
-      setTimeout(() => {
-        modal.style.display = 'flex';
-      }, 3000);
+        setTimeout(() => {
+            modal.style.display = 'flex';
+        }, 3000);
     }
-  
     btnCerrar.addEventListener('click', () => {
-      modal.style.display = 'none';
-      localStorage.setItem('modalVisto', 'true');
-    });
-  
-    document.querySelectorAll('.entrada-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
         modal.style.display = 'none';
         localStorage.setItem('modalVisto', 'true');
-      });
+    });
+    document.querySelectorAll('.entrada-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            localStorage.setItem('modalVisto', 'true');
+        });
     });
 });
 
-// =============================================
-// SISTEMA DE CONTADORES - RESPETANDO TU CÓDIGO ACTUAL
-// =============================================
-
-// RESPETO TU URL DEL APP SCRIPT ACTUAL
+// Contadores
 const SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwrLsJhrrps_-BzzKUfII7vcEwYK3Zk4uaqUmTugxswKoC_qBgTBV2loWLT2UTnN37f/exec";
 
-// Función para actualizar contador (SOLO cuando hay descarga real)
 async function updateDownloadCount(appName) {
     try {
-        console.log(`🔄 Actualizando contador para: ${appName}`);
         const url = `${SHEET_SCRIPT_URL}?app=${encodeURIComponent(appName)}&mode=inc`;
         const response = await fetch(url);
-        
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-        
         const newCount = await response.text();
-        console.log(`✅ Contador actualizado: ${appName} = ${newCount}`);
-        
-        // Actualizar TODOS los contadores con el mismo nombre
         document.querySelectorAll(`.contador[data-app="${appName}"]`).forEach(el => {
             el.textContent = newCount;
         });
-        
-        return newCount;
     } catch (error) {
-        console.error("❌ Error al actualizar contador:", error);
-        // Fallback: incremento local
-        incrementLocalCounter(appName);
+        console.error("Error al actualizar contador:", error);
     }
 }
 
-// Función para obtener contador (SOLO LECTURA, no incrementa)
-async function getDownloadCount(appName) { 
+async function getDownloadCount(appName) {
     try {
-        console.log(`📊 Obteniendo contador para: ${appName}`);
         const url = `${SHEET_SCRIPT_URL}?app=${encodeURIComponent(appName)}&mode=get&t=${Date.now()}`;
         const response = await fetch(url);
-        
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-        
-        const count = await response.text();
-        console.log(`📈 Contador obtenido: ${appName} = ${count}`);
-        
-        // Validar que sea un número
-        if (!isNaN(count) && count.trim() !== '') {
-            return count;
-        } else {
-            console.warn(`⚠️ Contador inválido para ${appName}:`, count);
-            return "0";
-        }
+        if (!response.ok) throw new Error("Error en la respuesta HTTP");
+        return await response.text();
     } catch (error) {
-        console.error("❌ Error al obtener contador:", error);
+        console.error("Error al obtener contador:", error);
         return "0";
     }
 }
 
-// Fallback local si falla el servidor
-function incrementLocalCounter(appName) {
-    const counters = document.querySelectorAll(`.contador[data-app="${appName}"]`);
-    counters.forEach(counter => {
-        const current = parseInt(counter.textContent) || 0;
-        counter.textContent = (current + 1).toString();
-    });
-}
-
-// Cargar contadores iniciales (SOLO LECTURA)
 async function loadInitialCounters() {
-    try {
-        console.log("🔄 Iniciando carga de contadores...");
-        const counters = document.querySelectorAll('.contador');
-        
-        console.log(`📊 Encontrados ${counters.length} contadores`);
-        
-        // Cargar todos los contadores
-        for (const counter of counters) {
-            const appName = counter.getAttribute('data-app');
-            if (appName) {
-                const currentCount = await getDownloadCount(appName);
-                counter.textContent = currentCount;
-                console.log(`✅ Contador cargado: ${appName} = ${currentCount}`);
-            }
-        }
-        
-        console.log("🎯 Todos los contadores cargados correctamente");
-        
-    } catch (error) {
-        console.error("❌ Error en carga inicial de contadores:", error);
+    const counters = document.querySelectorAll('.contador');
+    for (const counter of counters) {
+        const appName = counter.getAttribute('data-app');
+        const currentCount = await getDownloadCount(appName);
+        counter.textContent = currentCount;
     }
 }
 
-// =============================================
-// INICIALIZACIÓN CORREGIDA - SIN DUPLICACIONES
-// =============================================
-
-// Inicialización optimizada
-document.addEventListener('DOMContentLoaded', async function() {
-    console.log("🚀 Iniciando carga de la aplicación...");
-    
-    // 1. Esperar a que se carguen las aplicaciones
+// Inicialización corregida
+document.addEventListener('DOMContentLoaded', async () => {
     await loadApps();
-    
-    // 2. Luego cargar los contadores
     await loadInitialCounters();
-});
-
-// Debug final
-window.addEventListener('load', function() {
-    setTimeout(() => {
-        console.log('✅ Página completamente cargada');
-        
-        // Verificar estado final de contadores
-        const counters = document.querySelectorAll('.contador');
-        console.log(`🔍 Contadores en DOM: ${counters.length}`);
-    }, 1000);
 });
