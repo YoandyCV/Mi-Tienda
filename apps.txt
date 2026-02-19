@@ -28,11 +28,11 @@ Una simple app para forzar la 4G y otras configuraciones en nuestro movil.
 ./apps/4G_swit_1.1.apk
 ./apps/4Gswit.jpeg
 112.76 KB
-Diagramas v2.0
+Diagramas v2.1
 App desde donde puedes ver y descargar diagramas de la colección personal del autor y asociados.
-./apps/Diagramas_2.0.apk
+./apps/Diagramas_2.1.apk
 ./apps/Diagramas.png
-1.78 MB
+770 KB
 CalcTool v4.7
 Util Herramienta Para El Calculo Cotidiano En Nuestro Taller.
 ./apps/CalcTool_4.7.apk
