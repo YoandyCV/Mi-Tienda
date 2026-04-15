@@ -1,107 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Tienda de Aplicaciones</title>
-    <link rel="icon" type="image/png" href="./recursos/logo.png">
-    <link rel="stylesheet" href="./Styles.css"> <!-- Enlace al archivo CSS externo -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechStore | Catálogo de Software</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-        
-    <script src="./logica.js"></script> <!--Esto es nuevo ydc, cambie los js para un archivo js llamado logica-->
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
 
-    <!-- Ya comienza web de aqui en adelante-->
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="https://t.me/Apps_YCV" target="_blank">🥳 Únetenos a Telegram</a>
-        <p></p>
-        <a href="javascript:void(0)" onclick="document.getElementById('donationModal').style.display='block'">💰 Donaciones</a>
-        <img src="./recursos/menu-flotante.png" class="menu-flotante">
-    </div>
-
-    <div class="header">
-        <div class="menu-button-container">
-            <span class="menu-button" onclick="openNav()">&#9776;</span>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <h3>⚡ Panel Control</h3>
+      </div>
+      
+      <div class="sidebar-section">
+        <h4>❤️ Donaciones</h4>
+        <div class="qr-container">
+          <img src="recursos/qr.jpg" alt="QR Transfer" class="qr-image" onerror="this.parentElement.innerHTML='<div class=\'qr-err\'>📱<br>QR Offline</div>'">
         </div>
-        <h13>Mi Tienda de Aplicaciones</h13> <!-- modifique en css lo marco tambien-->
-        <img src="./recursos/logo.png" class="logo">
+        <button class="btn-qr-view" onclick="window.open('recursos/qr.jpg', '_blank')">Ampliar QR</button>
+      </div>
+      
+      <div class="sidebar-section">
+        <h4>💬 Contacto</h4>
+        <a href="#" class="nav-link wa">WhatsApp</a>
+        <a href="#" class="nav-link tg">Telegram</a>
+      </div>
+      
+      <div class="sidebar-footer">
+        <p>© 2026 TechStore</p>
+      </div>
     </div>
-<br> <!-- que esto? -->
-<!--
-<marquee behavior="scroll" direction="left" style="color: blue;">
-        Añadidos <span style="color: red;">26</span> nuevos diagramas en pdf.
-    </marquee>
--->
-    <div id="donationModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('donationModal').style.display='none'">&times;</span>
-            <h2>💰 Donaciones</h2>
-            <div class="qr-code">
-                <img src="./recursos/qr.jpg" alt="Código QR">
-            </div>
-            <p>Escanea el código QR para realizar una donación a nuestra cuenta.</p>
-        </div>
-    </div>
+  </aside>
 
-    <!-- Modal para bienvenida (usa localstorage saldra una sola vez)-->
-    <div id="entrada-modal" class="entrada-modal">
-      <div class="entrada-contenido">
-        <span class="entrada-cerrar">✄1�7</span> <!-- Parar salir -->
-        <h3>👋 ¡Hola, compa de la Electrónica!</h3>
-        <p>No queremos invadirte de anuncios, pero sí pedirte un favorcito:</p>
-        <p>📢 <strong>Comparte el link de la página</strong> con tus colegas de <em>WhatsApp</em> o <em>Telegram</em>.</p>
-        <p>💙 Y si luego tienes tiempo, échale un ojo a <button onclick="document.getElementById('donationModal').style.display='block'">Donaciones</button>.</p>
-        
-        <div class="entrada-botones">
-          <a href="https://t.me/share/url?url=https://mitienda-dajy.onrender.com&text=¡Mira esta tienda de apps para electrónica!" class="entrada-btn">
-            <img src="./recursos/telegram.png" alt="Telegram"> Compartir
-          </a>
-          <a href="https://wa.me/?text=¡Mira esta tienda de apps para electrónica! https://mitienda-dajy.onrender.com" class="entrada-btn">
-            <img src="./recursos/whatsapp.png" alt="WhatsApp"> Compartir
-          </a>
+  <main class="main-wrapper">
+    <header class="page-header">
+      <div class="header-content">
+        <span class="badge">Sistemas & Electrónica</span>
+        <h1>Catálogo de <span>Apps</span></h1>
+        <p>Herramientas de software especializado para optimizar tu trabajo.</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="apps-grid" id="appsContainer">
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Sincronizando base de datos...</p>
         </div>
       </div>
     </div>
+  </main>
 
-    <div class="main-content" id="app-container">
-        <!-- Las aplicaciones serán cargadas aquí -->
-    </div>
-
-    <div class="footer">
-        <p>📦 &copy; 2025 Mi Tienda de Aplicaciones. Todos los derechos reservados.</p>
-        <div class="footer-collapsed">
-            💬 Comparte y visítanos:
-            <a href="https://t.me/Apps_YCV" target="_blank">
-                <img src="./recursos/telegram.png" class="imagen" alt="Telegram">Únetenos a Telegram
-            </a>
-            <a href="https://chat.whatsapp.com/ECSnDO0juo2KVkpeZW4bYI" target="_blank">
-                <img src="./recursos/WhatsApp.png" class="imagen" alt="WhatsApp">Únetenos a grupo de WhatsApp
-            </a>
-            <a href="./recursos/correo.html" target="_blank">
-                <img src="./recursos/correo.png" class="imagen" alt="Correo">Envia un Correo al Dev
-            </a>
-        </div>
-    </div>
-
-    <!--Pantalla de carga para contar la descarga-->
-    <div id="descargaModal" class="descarga-modal">
-    <div class="descarga-content">
-        <span class="close-modal">&times;</span>
-        <div class="descarga-header">
-            <h3>📲 Descargando...</h3>
-        </div>
-        <div class="descarga-body">
-            <div class="tiempo-container">
-                <img src="./recursos/descarga.gif" class="tiempo-gif"> <!-- Reemplaza con tu GIF luego -->
-                <span id="countdown">5</span> segundos
-            </div>
-            <p class="descarga-info">📥 Tu descarga comenzará automáticamente 🎊</p>
-        </div>
-        <div class="descarga-bar">
-            <div class="descarga-pross"></div>
-        </div>
-    </div>
-</div>
+  <script src="script.js"></script>
 </body>
 </html>

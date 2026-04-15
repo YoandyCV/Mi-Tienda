@@ -1,0 +1,165 @@
+:root {
+  --bg-body: #0a0a0c;
+  --bg-side: #111114;
+  --bg-card: #16161a;
+  --primary: #2563eb;
+  --accent: #10b981;
+  --text: #f1f5f9;
+  --side-width: 280px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0;
+  width: var(--side-width);
+  height: 100vh;
+  background: var(--bg-side);
+  border-right: 1px solid #232329;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-content { padding: 2rem; display: flex; flex-direction: column; height: 100%; }
+
+.sidebar-header h3 {
+  color: var(--primary);
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+}
+
+.sidebar-section { margin-bottom: 2rem; }
+.sidebar-section h4 { font-size: 0.9rem; color: #64748b; margin-bottom: 1rem; text-transform: uppercase; }
+
+/* QR CORREGIDO */
+.qr-container {
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  width: 160px; /* Tamaño fijo para evitar deformaciones */
+  margin: 0 auto 1rem auto;
+}
+.qr-image { width: 100%; height: auto; display: block; border-radius: 4px; }
+
+.btn-qr-view {
+  width: 100%; background: #1e293b; color: white; border: none;
+  padding: 10px; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+}
+
+.nav-link {
+  display: block; padding: 12px; margin-bottom: 8px; border-radius: 8px;
+  text-decoration: none; color: white; text-align: center; font-weight: 600;
+}
+.wa { background: #128c7e; }
+.tg { background: #0088cc; }
+
+/* --- CONTENIDO PRINCIPAL --- */
+.main-wrapper {
+  margin-left: var(--side-width);
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+/* ENCABEZADO CORREGIDO */
+.page-header {
+  padding: 5rem 2rem;
+  background: radial-gradient(circle at top right, #1e293b, var(--bg-body));
+  text-align: center;
+}
+
+.header-content h1 { font-size: 3rem; margin: 1rem 0; }
+.header-content h1 span { color: var(--primary); text-shadow: 0 0 20px rgba(37, 99, 235, 0.4); }
+.badge { background: rgba(37,99,235,0.1); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+
+/* GRID DE TARJETAS CORREGIDO */
+.container { padding: 0 2rem 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.app-card {
+  background: var(--bg-card);
+  border-radius: 1.5rem;
+  border: 1px solid #232329;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.app-card:hover { transform: translateY(-8px); border-color: var(--primary); }
+
+.card-info { padding: 1.5rem; flex-grow: 1; }
+.card-info h3 { margin-bottom: 0.5rem; font-size: 1.25rem; }
+.card-info p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+.card-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #232329; padding-top: 1rem; }
+.size-tag { font-family: monospace; color: var(--accent); font-size: 0.85rem; }
+
+.btn-dl {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0 0 1.5rem 1.5rem;
+  transition: background 0.2s;
+}
+.btn-dl:hover { background: #1d4ed8; }
+
+/* RESPONSIVE */
+.menu-toggle {
+  display: none; position: fixed; top: 1.2rem; left: 1.2rem; z-index: 1100;
+  background: var(--primary); color: white; border: none; width: 48px; height: 48px;
+  border-radius: 10px; cursor: pointer; font-size: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main-wrapper { margin-left: 0; }
+  .menu-toggle { display: block; }
+  .page-header { padding: 6rem 1rem 3rem 1rem; }
+  .header-content h1 { font-size: 2.2rem; }
+}
+/* Estilo para el contador de descargas */
+.download-count {
+    color: #60a5fa;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: monospace;
+}
+
+/* Spinner para carga */
+.loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #1e293b;
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

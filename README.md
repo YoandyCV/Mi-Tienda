@@ -1,2 +1,0 @@
-# MiTienda
-Simple web
