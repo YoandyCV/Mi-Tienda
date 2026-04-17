@@ -1,8 +1,7 @@
-// Configuraci贸n - PON AQU脥 TU URL DEL SCRIPT DE GOOGLE
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBskl3naxAYg_xLfL02_gjSwBZAMI_9FeRrxuH7ne_eP8jTlMk-SEmVJDtuYDUJegR/exec'; // 猬咃笍 PEGA TU URL AQU脥.
+// Configuración - PON AQUÍ TU URL DEL SCRIPT DE GOOGLE
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBskl3naxAYg_xLfL02_gjSwBZAMI_9FeRrxuH7ne_eP8jTlMk-SEmVJDtuYDUJegR/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Menu Logic
     const menuBtn = document.getElementById('menuToggle');
     const side = document.getElementById('sidebar');
 
@@ -26,77 +25,93 @@ async function loadApps() {
     const grid = document.getElementById('appsContainer');
     try {
         const res = await fetch('apps.json');
+        if (!res.ok) throw new Error('No se pudo cargar apps.json');
         const data = await res.json();
         
-        // Obtener contadores desde Google Sheets
-        const contadores = await obtenerContadores();
+        let contadores = {};
+        try {
+            contadores = await obtenerContadores();
+            console.log('Contadores cargados:', contadores);
+        } catch (err) {
+            console.warn('No se pudieron obtener contadores:', err);
+        }
         
         grid.innerHTML = '';
         data.forEach(app => {
             const descargas = contadores[app.id] || 0;
             const card = document.createElement('div');
             card.className = 'app-card';
+            
+            // 🔥 NUEVO: Generar el HTML del icono (prioridad imagen sobre emoji)
+            let iconoHtml = '';
+            if (app.iconoUrl && app.iconoUrl.trim() !== '') {
+                // Intentar cargar imagen
+                iconoHtml = `<img src="${app.iconoUrl}" alt="${app.nombre}" class="app-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">`;
+                iconoHtml += `<div style="font-size: 2.5rem; margin-bottom: 1rem; display: none;">${app.iconoEmoji || '⚙️'}</div>`;
+            } else {
+                // Solo emoji
+                iconoHtml = `<div style="font-size: 2.5rem; margin-bottom: 1rem;">${app.iconoEmoji || '⚙️'}</div>`;
+            }
+            
             card.innerHTML = `
                 <div class="card-info">
-                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">${app.iconoEmoji || '鈿欙笍'}</div>
+                    ${iconoHtml}
                     <h3>${escapeHtml(app.nombre)}</h3>
                     <p>${escapeHtml(app.descripcion)}</p>
                     <div class="card-meta">
-                        <span class="size-tag">馃摝 ${app.tama帽o}</span>
-                        <span class="download-count" id="count-${app.id}">猬囷笍 ${descargas} descargas</span>
+                        <span class="size-tag">📦 ${app.tamaño}</span>
+                        <span class="download-count" id="count-${app.id}">⬇️ ${descargas} descargas</span>
                     </div>
                 </div>
-                <button class="btn-dl" onclick="handleDl('${app.id}', '${app.urlDescarga}')">
-                    鉀擄笍 Descargar
+                <button class="btn-dl" data-id="${app.id}" data-url="${app.urlDescarga}">
+                    ⛓️ Descargar
                 </button>
             `;
             grid.appendChild(card);
         });
+        
+        // Agregar event listeners a los botones
+        document.querySelectorAll('.btn-dl').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = btn.getAttribute('data-id');
+                const url = btn.getAttribute('data-url');
+                handleDl(id, url);
+            });
+        });
+        
     } catch (err) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 2rem;">鈿狅笍 No se pudo conectar con el servidor de aplicaciones.</p>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 2rem;">⚠️ Error: ${err.message}</p>`;
         console.error('Error loading apps:', err);
     }
 }
 
-// Obtener contadores desde Google Sheets
 async function obtenerContadores() {
-    try {
-        const url = `${SCRIPT_URL}?action=get`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('Error en la petici贸n');
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        console.warn('No se pudo obtener contadores desde Google Sheets:', error);
-        return {}; // Devuelve objeto vac铆o si falla
-    }
+    const url = `${SCRIPT_URL}?action=get`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP error ' + res.status);
+    const data = await res.json();
+    return data;
 }
 
-// Incrementar contador en Google Sheets
 async function incrementarContador(appId) {
-    try {
-        const url = `${SCRIPT_URL}?action=increment&appId=${encodeURIComponent(appId)}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('Error al incrementar');
-        const data = await res.json();
-        return data.success ? data.newValue : null;
-    } catch (error) {
-        console.error('Error al incrementar contador:', error);
-        return null;
-    }
+    const url = `${SCRIPT_URL}?action=increment&appId=${encodeURIComponent(appId)}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP error ' + res.status);
+    const data = await res.json();
+    return data.success ? data.newValue : null;
 }
 
-// Manejador de descarga (ahora con contador)
-window.handleDl = async function(id, url) {
-    // Incrementar contador en Google Sheets
-    const nuevoValor = await incrementarContador(id);
-    
-    // Actualizar el n煤mero en la interfaz
-    if (nuevoValor !== null) {
-        const countSpan = document.getElementById(`count-${id}`);
-        if (countSpan) {
-            countSpan.innerHTML = `猬囷笍 ${nuevoValor} descargas`;
+async function handleDl(id, url) {
+    try {
+        const nuevoValor = await incrementarContador(id);
+        if (nuevoValor !== null) {
+            const countSpan = document.getElementById(`count-${id}`);
+            if (countSpan) {
+                countSpan.innerHTML = `⬇️ ${nuevoValor} descargas`;
+            }
         }
+    } catch (err) {
+        console.warn('No se pudo actualizar contador:', err);
     }
     
     // Iniciar descarga
@@ -107,7 +122,7 @@ window.handleDl = async function(id, url) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-};
+}
 
 function escapeHtml(str) {
     if (!str) return '';

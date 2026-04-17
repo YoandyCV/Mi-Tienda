@@ -163,3 +163,12 @@ body {
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+/* Estilo para imágenes de apps */
+.app-icon-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin: 0 auto 1rem auto;
+    display: block;
+    border-radius: 12px;
+}
