@@ -1,7 +1,5 @@
 // Configuracionn DEL SCRIPT DE GOOGLE
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOCgKskBG5e-5-Pwpk64zuT3ySoQX0fkye1DfblaoIu3w3hdH1um6dfEuxhZWvc4Va/exec';
-
-
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQcxm00OkVnFX-wV1cGVjdgvtq96RBtWLVtwl2a81qw80qayvzZC7bZymOGfQqYa3g/exec';
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM cargado correctamente');
