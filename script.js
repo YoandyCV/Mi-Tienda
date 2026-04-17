@@ -1,5 +1,5 @@
 // Configuracionn DEL SCRIPT DE GOOGLE
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyP3ncVIdF41J3GWnOUDlS_QE3Uk7YLY0TtnGRGIcRyHUAIdonRv2grE3SYBZhYLlqa/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOCgKskBG5e-5-Pwpk64zuT3ySoQX0fkye1DfblaoIu3w3hdH1um6dfEuxhZWvc4Va/exec';
 
 
 
@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Cargar apps inmediatamente
     loadApps();
 });
 
@@ -37,40 +36,36 @@ async function loadApps() {
     console.log('Cargando aplicaciones...');
     
     try {
-        // 1. Cargar apps.json
         const res = await fetch('apps.json');
         if (!res.ok) throw new Error('No se pudo cargar apps.json: ' + res.status);
         const data = await res.json();
         console.log('Apps cargadas:', data.length);
         
-        // 2. Intentar obtener contadores (si falla, sigue sin contadores)
-        let contadores = {};
-        try {
-            contadores = await obtenerContadores();
-            console.log('Contadores cargados:', contadores);
-        } catch (err) {
-            console.warn('Contadores no disponibles:', err.message);
-        }
-        
-        // 3. Limpiar y construir grid
         grid.innerHTML = '';
         
         for (let i = 0; i < data.length; i++) {
             const app = data[i];
-            const descargas = contadores[app.id] || 0;
+            
+            // Obtener contador actual
+            let descargas = 0;
+            try {
+                descargas = await getDownloadCount(app.id);
+            } catch (err) {
+                console.warn('No se pudo obtener contador para', app.id, err);
+            }
+            
             const card = document.createElement('div');
             card.className = 'app-card';
             
-            // Generar icono - VERSIÓN CORREGIDA (sin template strings anidados problemáticos)
+            // Generar icono
             let iconoHtml = '';
             if (app.iconoUrl && app.iconoUrl.trim() !== '') {
-                iconoHtml = '<img src="' + app.iconoUrl + '" alt="' + this.escapeHtml(app.nombre) + '" class="app-icon-img" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';">' +
+                iconoHtml = '<img src="' + app.iconoUrl + '" alt="' + escapeHtml(app.nombre) + '" class="app-icon-img" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';">' +
                            '<div style="font-size: 2.5rem; margin-bottom: 1rem; display: none;">' + (app.iconoEmoji || '⚙️') + '</div>';
             } else {
                 iconoHtml = '<div style="font-size: 2.5rem; margin-bottom: 1rem;">' + (app.iconoEmoji || '⚙️') + '</div>';
             }
             
-            // Construir el HTML de la tarjeta - VERSIÓN SIMPLIFICADA SIN ERRORES
             card.innerHTML = 
                 '<div class="card-info">' +
                     iconoHtml +
@@ -88,7 +83,7 @@ async function loadApps() {
             grid.appendChild(card);
         }
         
-        // 4. Agregar event listeners a los botones
+        // Agregar event listeners a los botones
         const buttons = document.querySelectorAll('.btn-dl');
         for (let i = 0; i < buttons.length; i++) {
             const btn = buttons[i];
@@ -107,25 +102,38 @@ async function loadApps() {
     }
 }
 
-async function obtenerContadores() {
-    const url = SCRIPT_URL + '?action=get';
-    console.log('Consultando contadores:', url);
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    return data;
+// Obtener contador desde Google Sheets
+async function getDownloadCount(appId) {
+    try {
+        const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=get&t=' + Date.now();
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('HTTP error ' + response.status);
+        const count = await response.text();
+        return parseInt(count) || 0;
+    } catch (error) {
+        console.error('Error al obtener contador:', error);
+        return 0;
+    }
 }
 
+// Incrementar contador en Google Sheets
 async function incrementarContador(appId) {
-    const url = SCRIPT_URL + '?action=increment&appId=' + encodeURIComponent(appId);
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    return data.success ? data.newValue : null;
+    try {
+        const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=inc&t=' + Date.now();
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('HTTP error ' + response.status);
+        const newCount = await response.text();
+        return parseInt(newCount) || 0;
+    } catch (error) {
+        console.error('Error al incrementar contador:', error);
+        return null;
+    }
 }
 
+// Manejador de descarga
 async function handleDl(id, url) {
     console.log('Descargando:', id, url);
+    
     try {
         const nuevoValor = await incrementarContador(id);
         if (nuevoValor !== null) {
