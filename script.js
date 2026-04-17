@@ -1,10 +1,11 @@
 // Configuracionn DEL SCRIPT DE GOOGLE
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQcxm00OkVnFX-wV1cGVjdgvtq96RBtWLVtwl2a81qw80qayvzZC7bZymOGfQqYa3g/exec';
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM cargado correctamente');
     
-    // Menu Logic
     const menuBtn = document.getElementById('menuToggle');
     const side = document.getElementById('sidebar');
 
@@ -44,10 +45,10 @@ async function loadApps() {
         for (let i = 0; i < data.length; i++) {
             const app = data[i];
             
-            // Obtener contador actual
             let descargas = 0;
             try {
                 descargas = await getDownloadCount(app.id);
+                console.log('Contador para', app.id, ':', descargas);
             } catch (err) {
                 console.warn('No se pudo obtener contador para', app.id, err);
             }
@@ -55,7 +56,6 @@ async function loadApps() {
             const card = document.createElement('div');
             card.className = 'app-card';
             
-            // Generar icono
             let iconoHtml = '';
             if (app.iconoUrl && app.iconoUrl.trim() !== '') {
                 iconoHtml = '<img src="' + app.iconoUrl + '" alt="' + escapeHtml(app.nombre) + '" class="app-icon-img" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';">' +
@@ -81,7 +81,6 @@ async function loadApps() {
             grid.appendChild(card);
         }
         
-        // Agregar event listeners a los botones
         const buttons = document.querySelectorAll('.btn-dl');
         for (let i = 0; i < buttons.length; i++) {
             const btn = buttons[i];
@@ -100,13 +99,14 @@ async function loadApps() {
     }
 }
 
-// Obtener contador desde Google Sheets
 async function getDownloadCount(appId) {
     try {
         const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=get&t=' + Date.now();
+        console.log('Obteniendo contador:', url);
         const response = await fetch(url);
         if (!response.ok) throw new Error('HTTP error ' + response.status);
         const count = await response.text();
+        console.log('Contador recibido para', appId, ':', count);
         return parseInt(count) || 0;
     } catch (error) {
         console.error('Error al obtener contador:', error);
@@ -114,13 +114,14 @@ async function getDownloadCount(appId) {
     }
 }
 
-// Incrementar contador en Google Sheets
 async function incrementarContador(appId) {
     try {
         const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=inc&t=' + Date.now();
+        console.log('Incrementando contador:', url);
         const response = await fetch(url);
         if (!response.ok) throw new Error('HTTP error ' + response.status);
         const newCount = await response.text();
+        console.log('Nuevo contador para', appId, ':', newCount);
         return parseInt(newCount) || 0;
     } catch (error) {
         console.error('Error al incrementar contador:', error);
@@ -128,23 +129,28 @@ async function incrementarContador(appId) {
     }
 }
 
-// Manejador de descarga
 async function handleDl(id, url) {
     console.log('Descargando:', id, url);
     
-    try {
-        const nuevoValor = await incrementarContador(id);
-        if (nuevoValor !== null) {
-            const countSpan = document.getElementById('count-' + id);
-            if (countSpan) {
-                countSpan.innerHTML = '⬇️ ' + nuevoValor + ' descargas';
-            }
+    const nuevoValor = await incrementarContador(id);
+    
+    if (nuevoValor !== null && nuevoValor !== undefined) {
+        const countSpan = document.getElementById('count-' + id);
+        if (countSpan) {
+            countSpan.innerHTML = '⬇️ ' + nuevoValor + ' descargas';
+            console.log('Contador actualizado en pantalla:', nuevoValor);
+        } else {
+            console.warn('No se encontró el elemento count-' + id);
         }
-    } catch (err) {
-        console.warn('No se pudo actualizar contador:', err);
+    } else {
+        console.warn('No se pudo obtener el nuevo valor del contador');
+        const contadorActual = await getDownloadCount(id);
+        const countSpan = document.getElementById('count-' + id);
+        if (countSpan) {
+            countSpan.innerHTML = '⬇️ ' + contadorActual + ' descargas';
+        }
     }
     
-    // Iniciar descarga
     const link = document.createElement('a');
     link.href = url;
     link.target = '_blank';
