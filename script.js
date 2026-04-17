@@ -1,5 +1,5 @@
 // Configuración - PON AQUÍ TU URL DEL SCRIPT DE GOOGLE
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrLsJhrrps_-BzzKUfII7vcEwYK3Zk4uaqUmTugxswKoC_qBgTBV2loWLT2UTnN37f/exec'; // ⬅️ PEGA TU URL AQUÍ
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBskl3naxAYg_xLfL02_gjSwBZAMI_9FeRrxuH7ne_eP8jTlMk-SEmVJDtuYDUJegR/exec'; // ⬅️ PEGA TU URL AQUÍ.
 
 document.addEventListener('DOMContentLoaded', () => {
     // Menu Logic
