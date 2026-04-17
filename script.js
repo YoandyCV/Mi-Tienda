@@ -1,5 +1,6 @@
-// Configuraci¨®n - PON AQU0ˆ1 TU URL DEL SCRIPT DE GOOGLE
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBskl3naxAYg_xLfL02_gjSwBZAMI_9FeRrxuH7ne_eP8jTlMk-SEmVJDtuYDUJegR/exec';
+// Configuraciï¿½ï¿½n - PON AQUï¿½0ï¿½1 TU URL DEL SCRIPT DE GOOGLE
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwAMY5zZruBYsMlCi-EgBqDBpAc2IBqmf8IkqAnn2Lih0BBWcdaL2ZNxF9V-dNJaHT3/exec';
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const menuBtn = document.getElementById('menuToggle');
@@ -42,15 +43,15 @@ async function loadApps() {
             const card = document.createElement('div');
             card.className = 'app-card';
             
-            // ”9æ7 NUEVO: Generar el HTML del icono (prioridad imagen sobre emoji)
+            // ï¿½9ï¿½7 NUEVO: Generar el HTML del icono (prioridad imagen sobre emoji)
             let iconoHtml = '';
             if (app.iconoUrl && app.iconoUrl.trim() !== '') {
                 // Intentar cargar imagen
                 iconoHtml = `<img src="${app.iconoUrl}" alt="${app.nombre}" class="app-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">`;
-                iconoHtml += `<div style="font-size: 2.5rem; margin-bottom: 1rem; display: none;">${app.iconoEmoji || '7±5„1‚5'}</div>`;
+                iconoHtml += `<div style="font-size: 2.5rem; margin-bottom: 1rem; display: none;">${app.iconoEmoji || 'ï¿½7ï¿½5ï¿½1ï¿½5'}</div>`;
             } else {
                 // Solo emoji
-                iconoHtml = `<div style="font-size: 2.5rem; margin-bottom: 1rem;">${app.iconoEmoji || '7±5„1‚5'}</div>`;
+                iconoHtml = `<div style="font-size: 2.5rem; margin-bottom: 1rem;">${app.iconoEmoji || 'ï¿½7ï¿½5ï¿½1ï¿½5'}</div>`;
             }
             
             card.innerHTML = `
@@ -59,12 +60,12 @@ async function loadApps() {
                     <h3>${escapeHtml(app.nombre)}</h3>
                     <p>${escapeHtml(app.descripcion)}</p>
                     <div class="card-meta">
-                        <span class="size-tag">”9à4 ${app.tama0Š9o}</span>
-                        <span class="download-count" id="count-${app.id}">8¤9„1‚5 ${descargas} descargas</span>
+                        <span class="size-tag">ï¿½9ï¿½4 ${app.tamaï¿½0ï¿½9o}</span>
+                        <span class="download-count" id="count-${app.id}">ï¿½8ï¿½9ï¿½1ï¿½5 ${descargas} descargas</span>
                     </div>
                 </div>
                 <button class="btn-dl" data-id="${app.id}" data-url="${app.urlDescarga}">
-                    7·3„1‚5 Descargar
+                    ï¿½7ï¿½3ï¿½1ï¿½5 Descargar
                 </button>
             `;
             grid.appendChild(card);
@@ -80,7 +81,7 @@ async function loadApps() {
         });
         
     } catch (err) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 2rem;">7²2„1‚5 Error: ${err.message}</p>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 2rem;">ï¿½7ï¿½2ï¿½1ï¿½5 Error: ${err.message}</p>`;
         console.error('Error loading apps:', err);
     }
 }
@@ -107,7 +108,7 @@ async function handleDl(id, url) {
         if (nuevoValor !== null) {
             const countSpan = document.getElementById(`count-${id}`);
             if (countSpan) {
-                countSpan.innerHTML = `8¤9„1‚5 ${nuevoValor} descargas`;
+                countSpan.innerHTML = `ï¿½8ï¿½9ï¿½1ï¿½5 ${nuevoValor} descargas`;
             }
         }
     } catch (err) {
