@@ -101,9 +101,10 @@ async function loadApps() {
 
 async function getDownloadCount(appId) {
     try {
-        const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=get&t=' + Date.now();
-        console.log('Obteniendo contador:', url);
-        const response = await fetch(url);
+        // Usar proxy CORS para evitar el bloqueo
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const targetUrl = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=get&t=' + Date.now();
+        const response = await fetch(proxyUrl + targetUrl);
         if (!response.ok) throw new Error('HTTP error ' + response.status);
         const count = await response.text();
         console.log('Contador recibido para', appId, ':', count);
@@ -116,9 +117,10 @@ async function getDownloadCount(appId) {
 
 async function incrementarContador(appId) {
     try {
-        const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=inc&t=' + Date.now();
-        console.log('Incrementando contador:', url);
-        const response = await fetch(url);
+        // Usar proxy CORS para evitar el bloqueo
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const targetUrl = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=inc&t=' + Date.now();
+        const response = await fetch(proxyUrl + targetUrl);
         if (!response.ok) throw new Error('HTTP error ' + response.status);
         const newCount = await response.text();
         console.log('Nuevo contador para', appId, ':', newCount);
