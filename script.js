@@ -1,5 +1,5 @@
 // Configuracionn DEL SCRIPT DE GOOGLE
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwAMY5zZruBYsMlCi-EgBqDBpAc2IBqmf8IkqAnn2Lih0BBWcdaL2ZNxF9V-dNJaHT3/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyP3ncVIdF41J3GWnOUDlS_QE3Uk7YLY0TtnGRGIcRyHUAIdonRv2grE3SYBZhYLlqa/exec';
 
 
 
