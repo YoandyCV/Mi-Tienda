@@ -1,7 +1,10 @@
 // Configuracionn DEL SCRIPT DE GOOGLE
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_qWDiyOJE3aSlswI1GjmPSassQj1Z-VDSBmJJxKwaz44NPCHJEgObuF9tUzb1qwQt/exec';
+
+
+// Configuración del Script de Google
+// IMPORTANTE: Reemplaza esta URL con la que obtengas al desplegar tu Google Apps Script
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQcxm00OkVnFX-wV1cGVjdgvtq96RBtWLVtwl2a81qw80qayvzZC7bZymOGfQqYa3g/exec';
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM cargado correctamente');
@@ -58,7 +61,7 @@ async function loadApps() {
             
             let iconoHtml = '';
             if (app.iconoUrl && app.iconoUrl.trim() !== '') {
-                iconoHtml = '<img src="' + app.iconoUrl + '" alt="' + escapeHtml(app.nombre) + '" class="app-icon-img" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';">' +
+                iconoHtml = '<img src="' + escapeHtml(app.iconoUrl) + '" alt="' + escapeHtml(app.nombre) + '" class="app-icon-img" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';">' +
                            '<div style="font-size: 2.5rem; margin-bottom: 1rem; display: none;">' + (app.iconoEmoji || '⚙️') + '</div>';
             } else {
                 iconoHtml = '<div style="font-size: 2.5rem; margin-bottom: 1rem;">' + (app.iconoEmoji || '⚙️') + '</div>';
@@ -70,11 +73,11 @@ async function loadApps() {
                     '<h3>' + escapeHtml(app.nombre) + '</h3>' +
                     '<p>' + escapeHtml(app.descripcion) + '</p>' +
                     '<div class="card-meta">' +
-                        '<span class="size-tag">📦 ' + app.tamaño + '</span>' +
+                        '<span class="size-tag">📦 ' + escapeHtml(app.tamaño) + '</span>' +
                         '<span class="download-count" id="count-' + app.id + '">⬇️ ' + descargas + ' descargas</span>' +
                     '</div>' +
                 '</div>' +
-                '<button class="btn-dl" data-id="' + app.id + '" data-url="' + app.urlDescarga + '">' +
+                '<button class="btn-dl" data-id="' + escapeHtml(app.id) + '" data-url="' + escapeHtml(app.urlDescarga) + '">' +
                     '⛓️ Descargar' +
                 '</button>';
             
@@ -95,20 +98,33 @@ async function loadApps() {
         
     } catch (err) {
         console.error('Error en loadApps:', err);
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 2rem;">⚠️ Error: ' + err.message + '</p>';
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 2rem;">⚠️ Error: ' + escapeHtml(err.message) + '</p>';
     }
 }
 
 async function getDownloadCount(appId) {
     try {
-        // Usar proxy CORS para evitar el bloqueo
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        const targetUrl = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=get&t=' + Date.now();
-        const response = await fetch(proxyUrl + targetUrl);
+        // URL del Google Apps Script
+        const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=get&t=' + Date.now();
+        
+        const response = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache'
+        });
+        
         if (!response.ok) throw new Error('HTTP error ' + response.status);
         const count = await response.text();
-        console.log('Contador recibido para', appId, ':', count);
-        return parseInt(count) || 0;
+        
+        // Verificar si es un número válido
+        const numCount = parseInt(count);
+        if (isNaN(numCount)) {
+            console.warn('Respuesta no numérica:', count);
+            return 0;
+        }
+        
+        console.log('Contador recibido para', appId, ':', numCount);
+        return numCount;
     } catch (error) {
         console.error('Error al obtener contador:', error);
         return 0;
@@ -117,14 +133,25 @@ async function getDownloadCount(appId) {
 
 async function incrementarContador(appId) {
     try {
-        // Usar proxy CORS para evitar el bloqueo
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        const targetUrl = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=inc&t=' + Date.now();
-        const response = await fetch(proxyUrl + targetUrl);
+        const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=inc&t=' + Date.now();
+        
+        const response = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache'
+        });
+        
         if (!response.ok) throw new Error('HTTP error ' + response.status);
         const newCount = await response.text();
-        console.log('Nuevo contador para', appId, ':', newCount);
-        return parseInt(newCount) || 0;
+        
+        const numCount = parseInt(newCount);
+        if (isNaN(numCount)) {
+            console.warn('Respuesta no numérica al incrementar:', newCount);
+            return null;
+        }
+        
+        console.log('Nuevo contador para', appId, ':', numCount);
+        return numCount;
     } catch (error) {
         console.error('Error al incrementar contador:', error);
         return null;
@@ -153,6 +180,7 @@ async function handleDl(id, url) {
         }
     }
     
+    // Iniciar la descarga
     const link = document.createElement('a');
     link.href = url;
     link.target = '_blank';
