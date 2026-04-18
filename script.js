@@ -1,5 +1,5 @@
 // Configuracionn DEL SCRIPT DE GOOGLE
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzptMLUD8-dtZrFk8I9GLczL_CwxXDaAUQ9ElAHwB6k4TnnKk_bZ9OtoRAVrvsIGye8/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzI8xdX1RDMHa3Dy86UK410123d2gEyZgWnuEhL0jpFiRL9DN8S55QCqVNO4glTXtEU/exec';
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -41,15 +41,15 @@ async function loadApps() {
         
         grid.innerHTML = '';
         
+        // Cargar contadores desde localStorage primero
         for (let i = 0; i < data.length; i++) {
             const app = data[i];
-            
             let descargas = 0;
-            try {
-                descargas = await getDownloadCount(app.id);
-                console.log('Contador para', app.id, ':', descargas);
-            } catch (err) {
-                console.warn('No se pudo obtener contador para', app.id, err);
+            
+            // Intentar obtener contador guardado localmente
+            const savedCount = localStorage.getItem('count_' + app.id);
+            if (savedCount) {
+                descargas = parseInt(savedCount);
             }
             
             const card = document.createElement('div');
@@ -100,30 +100,19 @@ async function loadApps() {
 
 async function getDownloadCount(appId) {
     try {
-        // URL del Google Apps Script
         const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=get&t=' + Date.now();
         
-        const response = await fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache'
-        });
+        // Usar modo no-cors - no podemos leer respuesta pero al menos se envía
+        await fetch(url, { mode: 'no-cors' });
         
-        if (!response.ok) throw new Error('HTTP error ' + response.status);
-        const count = await response.text();
+        // Retornar el valor guardado en localStorage
+        const saved = localStorage.getItem('count_' + appId);
+        return saved ? parseInt(saved) : 0;
         
-        // Verificar si es un número válido
-        const numCount = parseInt(count);
-        if (isNaN(numCount)) {
-            console.warn('Respuesta no numérica:', count);
-            return 0;
-        }
-        
-        console.log('Contador recibido para', appId, ':', numCount);
-        return numCount;
     } catch (error) {
         console.error('Error al obtener contador:', error);
-        return 0;
+        const saved = localStorage.getItem('count_' + appId);
+        return saved ? parseInt(saved) : 0;
     }
 }
 
@@ -131,49 +120,36 @@ async function incrementarContador(appId) {
     try {
         const url = SCRIPT_URL + '?app=' + encodeURIComponent(appId) + '&mode=inc&t=' + Date.now();
         
-        const response = await fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache'
-        });
+        // Enviar la petición en segundo plano (no esperamos respuesta)
+        fetch(url, { mode: 'no-cors' }).catch(e => console.log('Error en fetch:', e));
         
-        if (!response.ok) throw new Error('HTTP error ' + response.status);
-        const newCount = await response.text();
+        // Incrementar localmente
+        const current = localStorage.getItem('count_' + appId);
+        const newCount = (current ? parseInt(current) : 0) + 1;
+        localStorage.setItem('count_' + appId, newCount);
         
-        const numCount = parseInt(newCount);
-        if (isNaN(numCount)) {
-            console.warn('Respuesta no numérica al incrementar:', newCount);
-            return null;
-        }
+        console.log('Contador incrementado localmente:', appId, newCount);
+        return newCount;
         
-        console.log('Nuevo contador para', appId, ':', numCount);
-        return numCount;
     } catch (error) {
         console.error('Error al incrementar contador:', error);
-        return null;
+        // Fallback: solo incrementar localmente
+        const current = localStorage.getItem('count_' + appId);
+        const newCount = (current ? parseInt(current) : 0) + 1;
+        localStorage.setItem('count_' + appId, newCount);
+        return newCount;
     }
 }
 
 async function handleDl(id, url) {
     console.log('Descargando:', id, url);
     
+    // Incrementar contador y actualizar UI
     const nuevoValor = await incrementarContador(id);
     
-    if (nuevoValor !== null && nuevoValor !== undefined) {
-        const countSpan = document.getElementById('count-' + id);
-        if (countSpan) {
-            countSpan.innerHTML = '⬇️ ' + nuevoValor + ' descargas';
-            console.log('Contador actualizado en pantalla:', nuevoValor);
-        } else {
-            console.warn('No se encontró el elemento count-' + id);
-        }
-    } else {
-        console.warn('No se pudo obtener el nuevo valor del contador');
-        const contadorActual = await getDownloadCount(id);
-        const countSpan = document.getElementById('count-' + id);
-        if (countSpan) {
-            countSpan.innerHTML = '⬇️ ' + contadorActual + ' descargas';
-        }
+    const countSpan = document.getElementById('count-' + id);
+    if (countSpan && nuevoValor !== null) {
+        countSpan.innerHTML = '⬇️ ' + nuevoValor + ' descargas';
     }
     
     // Iniciar la descarga
