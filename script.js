@@ -1,11 +1,6 @@
 // Configuracionn DEL SCRIPT DE GOOGLE
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_qWDiyOJE3aSlswI1GjmPSassQj1Z-VDSBmJJxKwaz44NPCHJEgObuF9tUzb1qwQt/exec';
 
-
-// Configuración del Script de Google
-// IMPORTANTE: Reemplaza esta URL con la que obtengas al desplegar tu Google Apps Script
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwQcxm00OkVnFX-wV1cGVjdgvtq96RBtWLVtwl2a81qw80qayvzZC7bZymOGfQqYa3g/exec';
-
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM cargado correctamente');
     
