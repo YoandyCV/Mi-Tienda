@@ -1,92 +1,137 @@
 [
-  {
-    "id": "calctool",
-    "nombre": "CalcTool_4.9.apk",
-    "descripcion": "Util Herramienta Para El Calculo Cotidiano En Nuestro Taller.",
-    "tamaño": "2.18 MB",
-    "urlDescarga": "/apps/CalcTool_4.9.apk",
-    "iconoEmoji": "🧮",
-    "iconoUrl": "/apps/CalcTool.png"
-  },
-  {
-    "id": "speed-multimedia",
-    "nombre": "Speed Multimedia v2.2",
-    "descripcion": "Speed es un software Creado por Piñirí (Por ahora para PC) diseñado para organizar y disfrutar toda tu multimedia de una forma comoda y sencilla. Puede visitar su pagina en https://speed2-1urw.onrender.com/ o descargarla directamente en el botón de abajo.👇",
-    "tamaño": "160 Mb",
-    "urlDescarga": "https://github.com/Mike2Abraham/SPEED-ELECTRONIC-AUDIO-2.0/releases/download/SPM-sub2.2/SPEED.v2.2.0.7z",
-    "iconoEmoji": "🎵",
-    "iconoUrl": "/apps/speed.jpg"
-  },
-  {
-    "id": "bd-roturas",
-    "nombre": "BD Roturas v1.2",
-    "descripcion": "Una app de blogs compartido donde podrá encontrar o contribuir con TIPs de roturas que fueron solucionandos.",
-    "tamaño": "4.58 MB",
-    "urlDescarga": "/apps/BD_Roturas_1.2.apk",
-    "iconoEmoji": "🔧",
-    "iconoUrl": "/apps/BD_Roturas.png"
-  },
-  {
-    "id": "sim-basic-tools",
-    "nombre": "Sim Basic Tools v2.6",
-    "descripcion": "Una app creada por Lenioy para gestionar los paquetes de datos y saldo del móvil así como otras utilidades en nuestra tarjeta SIM.",
-    "tamaño": "137 KB",
-    "urlDescarga": "/apps/SIM_BASIC_TOOLS_2.6.apk",
-    "iconoEmoji": "📶",
-    "iconoUrl": "/apps/SIM_BASIC_TOOLS.jpg"
-  },
-  {
-    "id": "cacharrerotools",
-    "nombre": "CacharreroTools v1.0",
-    "descripcion": "Una version de CalcTool para windows con menos secciones por no actualizarla mas, contiene un identificador del codigo de colores en resistencias.",
-    "tamaño": "521 KB",
-    "urlDescarga": "/apps/CacharreroTools_1.0.zip",
-    "iconoEmoji": "🔩",
-    "iconoUrl": "/apps/CacharreroTools.ico"
-  },
-  {
-    "id": "catalogo",
-    "nombre": "Catalogo v1.0",
-    "descripcion": "Una aplicación para Windows que contiene datos sobre componentes de construcción rusa y nacional.",
-    "tamaño": "610 KB",
-    "urlDescarga": "/apps/Catalogo_ruso_nacional.zip",
-    "iconoEmoji": "📚",
-    "iconoUrl": "/apps/Catalogo.jpg"
-  },
-  {
-    "id": "4g-swit",
-    "nombre": "4G Swit v1.1",
-    "descripcion": "Una simple app para forzar la 4G y otras configuraciones en nuestro movil.",
-    "tamaño": "112.76 KB",
-    "urlDescarga": "/apps/4G_swit_1.1.apk",
-    "iconoEmoji": "📡",
-    "iconoUrl": "/apps/4Gswit.jpeg"
-  },
-  {
-    "id": "diagramas",
-    "nombre": "Diagramas v2.1",
-    "descripcion": "App desde donde puedes ver y descargar diagramas de la colección personal del autor y asociados.",
-    "tamaño": "770 KB",
-    "urlDescarga": "/apps/Diagramas_2.1.apk",
-    "iconoEmoji": "📐",
-    "iconoUrl": "/apps/Diagramas.png"
-  },
-  {
-    "id": "web-to-pdf",
-    "nombre": "Web To Pdf v1.0",
-    "descripcion": "Guarda El Contenido De Una Pagina Web En Un Archivo Pdf.",
-    "tamaño": "4.06 MB",
-    "urlDescarga": "/apps/Web_To_Pdf_1.0.apk",
-    "iconoEmoji": "📄",
-    "iconoUrl": "/apps/WebToPdf.png"
-  },
-  {
-    "id": "generar-sonido",
-    "nombre": "Generar sonido v1.0",
-    "descripcion": "Generador De Tonos Para El Trabajo Con Audios.",
-    "tamaño": "100.68 KB",
-    "urlDescarga": "/apps/Generar_sonido_1.0.apk",
-    "iconoEmoji": "🎵",
-    "iconoUrl": "/apps/GenerarSonido.png"
-  }
+    {
+        "id": "calctool",
+        "nombre": "CalcTool_4.9.apk",
+        "descripcion": "Util Herramienta Para El Calculo Cotidiano En Nuestro Taller.",
+        "tamaño": "2.18 MB",
+        "urlDescarga": "\/apps\/CalcTool_4.9.apk",
+        "iconoEmoji": "🧮",
+        "iconoUrl": "\/apps\/CalcTool.png"
+    },
+    {
+        "id": "speed-multimedia",
+        "nombre": "Speed Multimedia v2.2",
+        "descripcion": "Speed es un software Creado por Piñirí (Por ahora para PC) diseñado para organizar y disfrutar toda tu multimedia de una forma comoda y sencilla. Puede visitar su pagina en https:\/\/speed2-1urw.onrender.com\/ o descargarla directamente en el botón de abajo.👇",
+        "tamaño": "160 Mb",
+        "urlDescarga": "https:\/\/github.com\/Mike2Abraham\/SPEED-ELECTRONIC-AUDIO-2.0\/releases\/download\/SPM-sub2.2\/SPEED.v2.2.0.7z",
+        "iconoEmoji": "🎵",
+        "iconoUrl": "\/apps\/speed.jpg"
+    },
+    {
+        "id": "bd-roturas",
+        "nombre": "BD Roturas v1.2",
+        "descripcion": "Una app de blogs compartido donde podrá encontrar o contribuir con TIPs de roturas que fueron solucionandos.",
+        "tamaño": "4.58 MB",
+        "urlDescarga": "\/apps\/BD_Roturas_1.2.apk",
+        "iconoEmoji": "🔧",
+        "iconoUrl": "\/apps\/BD_Roturas.png"
+    },
+    {
+        "id": "sim-basic-tools",
+        "nombre": "Sim Basic Tools v2.6",
+        "descripcion": "Una app creada por Lenioy para gestionar los paquetes de datos y saldo del móvil así como otras utilidades en nuestra tarjeta SIM.",
+        "tamaño": "137 KB",
+        "urlDescarga": "\/apps\/SIM_BASIC_TOOLS_2.6.apk",
+        "iconoEmoji": "📶",
+        "iconoUrl": "\/apps\/SIM_BASIC_TOOLS.jpg"
+    },
+    {
+        "id": "cacharrerotools",
+        "nombre": "CacharreroTools v1.0",
+        "descripcion": "Una version de CalcTool para windows con menos secciones por no actualizarla mas, contiene un identificador del codigo de colores en resistencias.",
+        "tamaño": "521 KB",
+        "urlDescarga": "\/apps\/CacharreroTools_1.0.zip",
+        "iconoEmoji": "🔩",
+        "iconoUrl": "\/apps\/CacharreroTools.ico"
+    },
+    {
+        "id": "catalogo",
+        "nombre": "Catalogo v1.0",
+        "descripcion": "Una aplicación para Windows que contiene datos sobre componentes de construcción rusa y nacional.",
+        "tamaño": "610 KB",
+        "urlDescarga": "\/apps\/Catalogo_ruso_nacional.zip",
+        "iconoEmoji": "📚",
+        "iconoUrl": "\/apps\/Catalogo.jpg"
+    },
+    {
+        "id": "4g-swit",
+        "nombre": "4G Swit v1.1",
+        "descripcion": "Una simple app para forzar la 4G y otras configuraciones en nuestro movil.",
+        "tamaño": "112.76 KB",
+        "urlDescarga": "\/apps\/4G_swit_1.1.apk",
+        "iconoEmoji": "📡",
+        "iconoUrl": "\/apps\/4Gswit.jpeg"
+    },
+    {
+        "id": "diagramas",
+        "nombre": "Diagramas v2.1",
+        "descripcion": "App desde donde puedes ver y descargar diagramas de la colección personal del autor y asociados.",
+        "tamaño": "770 KB",
+        "urlDescarga": "\/apps\/Diagramas_2.1.apk",
+        "iconoEmoji": "📐",
+        "iconoUrl": "\/apps\/Diagramas.png"
+    },
+    {
+        "id": "web-to-pdf",
+        "nombre": "Web To Pdf v1.0",
+        "descripcion": "Guarda El Contenido De Una Pagina Web En Un Archivo Pdf.",
+        "tamaño": "4.06 MB",
+        "urlDescarga": "\/apps\/Web_To_Pdf_1.0.apk",
+        "iconoEmoji": "📄",
+        "iconoUrl": "\/apps\/WebToPdf.png"
+    },
+    {
+        "id": "generar-sonido",
+        "nombre": "Generar sonido v1.0",
+        "descripcion": "Generador De Tonos Para El Trabajo Con Audios.",
+        "tamaño": "100.68 KB",
+        "urlDescarga": "\/apps\/Generar_sonido_1.0.apk",
+        "iconoEmoji": "🎵",
+        "iconoUrl": "\/apps\/GenerarSonido.png"
+    },
+    {
+        "id": "Inventario",
+        "nombre": "Inventario v1.2",
+        "descripcion": "Util Herramienta para el calculo automático de las compra de productos piezas y otras ocurrencias.",
+        "tamaño": "5,88b MB",
+        "urlDescarga": "\/apps\/Inventario_1.2.apk",
+        "iconoEmoji": "📝",
+        "iconoUrl": "\/apps\/Inventario.png"
+    },
+    {
+        "id": "DatosEtec",
+        "nombre": "DatosEtec v1.3",
+        "descripcion": "Otra de las versiones para la gestión y consultas de paquetes en los móviles, simple y personalizable.",
+        "tamaño": "4.18 MB",
+        "urlDescarga": "\/apps\/DatosEtec_1.3.apk",
+        "iconoEmoji": "📲",
+        "iconoUrl": "\/apps\/DatosEtec.webp"
+    },
+    {
+        "id": "LaMovie",
+        "nombre": "La Movie v1.4",
+        "descripcion": "Interfaz para una web de películas series y mucho más.",
+        "tamaño": "108 KB",
+        "urlDescarga": "\/apps\/La_Movie_1.4.apk",
+        "iconoEmoji": "🎥",
+        "iconoUrl": "\/apps\/LaMovie.png"
+    },
+    {
+        "id": "Notas",
+        "nombre": "Notas v1.0",
+        "descripcion": "Edita, guarda y comparte notas. La mejor forma de no olvidar.",
+        "tamaño": "4.61 MB",
+        "urlDescarga": "\/apps\/Notas_1.0.apk",
+        "iconoEmoji": "🗒️",
+        "iconoUrl": "\/apps\/Notas.png"
+    },
+    {
+        "id": "Signal",
+        "nombre": "Signal v1.5",
+        "descripcion": "Ideal aplicación para medir y conocer datos sobre la red movil, La mejor forma de orientar su antena máxima ganancia.",
+        "tamaño": "1.85 MB",
+        "urlDescarga": "\/apps\/Notas_1.0.apk",
+        "iconoEmoji": "🗒️",
+        "iconoUrl": "\/apps\/Notas.png"
+    }
 ]
