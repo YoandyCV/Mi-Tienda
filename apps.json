@@ -1,4 +1,48 @@
-[
+[    {
+        "id": "Inventario",
+        "nombre": "Inventario v1.2",
+        "descripcion": "Util Herramienta para el calculo automático de las compra de productos piezas y otras ocurrencias.",
+        "tamaño": "5,88b MB",
+        "urlDescarga": "\/apps\/Inventario_1.2.apk",
+        "iconoEmoji": "📝",
+        "iconoUrl": "\/apps\/Inventario.png"
+    },
+    {
+        "id": "DatosEtec",
+        "nombre": "DatosEtec v1.3",
+        "descripcion": "Otra de las versiones para la gestión y consultas de paquetes en los móviles, simple y personalizable.",
+        "tamaño": "4.18 MB",
+        "urlDescarga": "\/apps\/DatosEtec_1.3.apk",
+        "iconoEmoji": "📲",
+        "iconoUrl": "\/apps\/DatosEtec.webp"
+    },
+    {
+        "id": "LaMovie",
+        "nombre": "La Movie v1.4",
+        "descripcion": "Interfaz para una web de películas series y mucho más.",
+        "tamaño": "108 KB",
+        "urlDescarga": "\/apps\/La_Movie_1.4.apk",
+        "iconoEmoji": "🎥",
+        "iconoUrl": "\/apps\/LaMovie.png"
+    },
+    {
+        "id": "Notas",
+        "nombre": "Notas v1.0",
+        "descripcion": "Edita, guarda y comparte notas. La mejor forma de no olvidar.",
+        "tamaño": "4.61 MB",
+        "urlDescarga": "\/apps\/Notas_1.0.apk",
+        "iconoEmoji": "🗒️",
+        "iconoUrl": "\/apps\/Notas.png"
+    },
+    {
+        "id": "Signal",
+        "nombre": "Signal v1.5",
+        "descripcion": "Ideal aplicación para medir y conocer datos sobre la red movil, La mejor forma de orientar su antena máxima ganancia.",
+        "tamaño": "1.85 MB",
+        "urlDescarga": "\/apps\/Notas_1.0.apk",
+        "iconoEmoji": "📡️",
+        "iconoUrl": "\/apps\/Signal.png"
+    },
     {
         "id": "calctool",
         "nombre": "CalcTool_4.9.apk",
@@ -88,50 +132,5 @@
         "urlDescarga": "\/apps\/Generar_sonido_1.0.apk",
         "iconoEmoji": "🎵",
         "iconoUrl": "\/apps\/GenerarSonido.png"
-    },
-    {
-        "id": "Inventario",
-        "nombre": "Inventario v1.2",
-        "descripcion": "Util Herramienta para el calculo automático de las compra de productos piezas y otras ocurrencias.",
-        "tamaño": "5,88b MB",
-        "urlDescarga": "\/apps\/Inventario_1.2.apk",
-        "iconoEmoji": "📝",
-        "iconoUrl": "\/apps\/Inventario.png"
-    },
-    {
-        "id": "DatosEtec",
-        "nombre": "DatosEtec v1.3",
-        "descripcion": "Otra de las versiones para la gestión y consultas de paquetes en los móviles, simple y personalizable.",
-        "tamaño": "4.18 MB",
-        "urlDescarga": "\/apps\/DatosEtec_1.3.apk",
-        "iconoEmoji": "📲",
-        "iconoUrl": "\/apps\/DatosEtec.webp"
-    },
-    {
-        "id": "LaMovie",
-        "nombre": "La Movie v1.4",
-        "descripcion": "Interfaz para una web de películas series y mucho más.",
-        "tamaño": "108 KB",
-        "urlDescarga": "\/apps\/La_Movie_1.4.apk",
-        "iconoEmoji": "🎥",
-        "iconoUrl": "\/apps\/LaMovie.png"
-    },
-    {
-        "id": "Notas",
-        "nombre": "Notas v1.0",
-        "descripcion": "Edita, guarda y comparte notas. La mejor forma de no olvidar.",
-        "tamaño": "4.61 MB",
-        "urlDescarga": "\/apps\/Notas_1.0.apk",
-        "iconoEmoji": "🗒️",
-        "iconoUrl": "\/apps\/Notas.png"
-    },
-    {
-        "id": "Signal",
-        "nombre": "Signal v1.5",
-        "descripcion": "Ideal aplicación para medir y conocer datos sobre la red movil, La mejor forma de orientar su antena máxima ganancia.",
-        "tamaño": "1.85 MB",
-        "urlDescarga": "\/apps\/Notas_1.0.apk",
-        "iconoEmoji": "🗒️",
-        "iconoUrl": "\/apps\/Signal.png"
     }
 ]
